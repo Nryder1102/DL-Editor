@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import com.dlsearch.Console;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 
 public class Character {
     private int id;
@@ -161,7 +163,7 @@ public class Character {
     private String textFile = "src/main/resources/com/dlsearch/files/TextLabel.json";
 
     public Character(){
-
+        
     }
 
     public Character(int id, String name, String secondName, int emblemId, int weaponType, int rarity,
@@ -352,7 +354,11 @@ public class Character {
         ArrayList<Character> characterList = new ArrayList<>();
         String fileName = "src/main/resources/com/dlsearch/files/CharaData.json";
 
-        try {
+        JsonElement jElement = new JsonParser().parse(jsonString);
+        JsonObject  jObject = jElement.getAsJsonObject();
+        jObject = jObject.getAsJsonObject("types");
+
+        /* try {
             ArrayList<String> baseFile = Console.SplitFile(fileName, "},");
             boolean firstID = true;
             for(int i = 6; i < baseFile.size(); i++){
@@ -380,7 +386,7 @@ public class Character {
         } catch (FileNotFoundException e) {
             System.out.println("Uh oh, stinky!");
         }
-
+ */
         return characterList;
     }
 
