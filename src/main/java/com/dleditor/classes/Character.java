@@ -361,8 +361,8 @@ public class Character{
 
         System.out.println(data.toString());
         //No. Bad. Figure out a way to not have to use this
-        /* try {
-            ArrayList<String> baseFile = Console.SplitFile(fileName, "},");
+        try {
+            ArrayList<String> baseFile = Console.splitFile(fileName, "},");
             boolean firstID = true;
             for(int i = 6; i < baseFile.size(); i++){
                 String[] currentLine = baseFile.get(i).split(",");
@@ -389,7 +389,7 @@ public class Character{
         } catch (FileNotFoundException e) {
             System.out.println("Uh oh, stinky!");
         }
- */
+
         return characterList;
     }
     
