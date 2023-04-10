@@ -1,9 +1,12 @@
 package com.dleditor;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import com.dleditor.classes.Character;
 import com.dleditor.classes.Dragon;
 import com.dleditor.classes.Talisman;
+import com.google.gson.JsonObject;
 
 
 
@@ -21,9 +25,9 @@ import com.dleditor.classes.Talisman;
  */
 public class App extends Application {
 
-    public static ArrayList<Character> characterList = new ArrayList<>();
-    public static ArrayList<Dragon> dragonList = new ArrayList<>();
-    public static ArrayList<Talisman> talismanList = new ArrayList<>();
+    public static ArrayList<JsonObject> characterList = new ArrayList<>();
+    public static ArrayList<JsonObject> dragonList = new ArrayList<>();
+    public static ArrayList<JsonObject> talismanList = new ArrayList<>();
 
     private static Scene scene;
 
@@ -32,6 +36,13 @@ public class App extends Application {
         scene = new Scene(loadFXML("primary"));
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -43,20 +54,9 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void getNames(){
-        try {
-            characterList = Character.createCharacterList();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        dragonList = Dragon.createDragonList();
-        talismanList = Talisman.createTalismanList();
-    }
-
     public static void main(String[] args) {
-        getNames();
         launch();
     }
+
 
 }

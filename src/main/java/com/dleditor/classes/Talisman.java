@@ -1,9 +1,12 @@
 package com.dleditor.classes;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.dleditor.Console;
+import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 
 public class Talisman {
 
@@ -14,107 +17,76 @@ public class Talisman {
     private int talismanCharaId;
     private int sellCoin;
 
-    private String textFile = "src/main/resources/com/dleditor/files/TextLabel.json";
+    private static String textFile = "src/main/resources/com/dleditor/files/TextLabel.json";
 
     public Talisman(){
 
     }
 
-    public Talisman(int id, String name, int baseHp, int baseAtk, int talismanCharaId, int sellCoin) {
-        this.id = id;
-        this.name = name;
-        this.baseHp = baseHp;
-        this.baseAtk = baseAtk;
-        this.talismanCharaId = talismanCharaId;
-        this.sellCoin = sellCoin;
-    }
-
-    public static ArrayList<Talisman> createTalismanList(){
-        ArrayList<String> tempTalisman = new ArrayList<>();
-        ArrayList<Talisman> talismanList = new ArrayList<>();
+    public static ArrayList<JsonObject> createTalismanList() throws FileNotFoundException{
+        ArrayList<JsonObject> talismanList = new ArrayList<>();
         String fileName = "src/main/resources/com/dleditor/files/TalismanData.json";
-        try {
-            ArrayList<String> baseFile = Console.splitFile(fileName,"},");
-            boolean firstID = true;
-            for(int i = 6; i < baseFile.size(); i++){
-                String[] currentLine = baseFile.get(i).split(",");
-                for(int k = 0; k < currentLine.length; k++){
-                    String[] currentEntry = currentLine[k].split(": ");
-                    if(i == 6 && firstID == true){
-                        tempTalisman.add(currentEntry[3].strip());
-                        firstID = false;
-                    }else{
-                        tempTalisman.add(currentEntry[1].replace("}","").replace("]","").strip());
-                    }
-                    }
-                if(tempTalisman.size() != 2){
-                    Talisman newTalisman = new Talisman(Integer.parseInt(tempTalisman.get(0)),tempTalisman.get(1),Integer.parseInt(tempTalisman.get(2)),Integer.parseInt(tempTalisman.get(3)),Integer.parseInt(tempTalisman.get(4)),Integer.parseInt(tempTalisman.get(5)));
-                        talismanList.add(newTalisman);
-                }
-                tempTalisman = new ArrayList<>();
-            }
-                
-        } catch (FileNotFoundException e) {
-            System.out.println("Uh oh, stinky!");
+
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new FileReader(fileName));
+        JsonObject data = gson.fromJson(reader, JsonObject.class);
+        JsonObject dict = data.get("dict").getAsJsonObject();
+        JsonObject entries = dict.get("entriesValue").getAsJsonObject();
+        JsonArray talismanEntries = entries.get("Array").getAsJsonArray();
+
+        for(JsonElement element : talismanEntries){
+            talismanList.add(element.getAsJsonObject());
         }
+        
         return talismanList;
     }
 
-    public int getId() {
-        return id;
+    //Getters and setters
+    public static int getId(JsonObject element) {
+        return element.get("_Id").getAsInt();
     }
-
-    public void setId(int id) {
-        this.id = id;
+    public static void setId(JsonObject element, int id) {
+        element.addProperty("_Id", id);
     }
-
-    public String getName() {
+    public static String getName(JsonObject element) {
+        String name = element.get("_Name").getAsString();
         try{
-            return Console.grabText(textFile, this.name, 1).split(": ")[1].replace('"',' ').strip();
-        }catch(Exception e1){
-            return "Unknown ID: " + id;
+            return Console.grabText(textFile, name, 1).split(": ")[1].replace('"',' ').strip();
+        }catch(Exception e){
+            return "Name not Found";
         }
     }
-
-    public void setName(String name) {
-        this.name = name;
+    //public static void setName(String name) {
+    //    this.name = name;
+    //}
+    public static String getNameId(JsonObject element) {
+        return element.get("_Name").getAsString();
     }
-
-    public int getBaseHp() {
-        return baseHp;
+    public static void setNameId(JsonObject element, String name) {
+        element.addProperty("_Name", name);
     }
-
-    public void setBaseHp(int baseHp) {
-        this.baseHp = baseHp;
+    public static int getBaseHp(JsonObject element) {
+        return element.get("_BaseHp").getAsInt();
     }
-
-    public int getBaseAtk() {
-        return baseAtk;
+    public static void setBaseHp(JsonObject element, int baseHp) {
+        element.addProperty("_BaseHp", baseHp);
     }
-
-    public void setBaseAtk(int baseAtk) {
-        this.baseAtk = baseAtk;
+    public static int getBaseAtk(JsonObject element) {
+        return element.get("_BaseAtk").getAsInt();
     }
-
-    public int getTalismanCharaId() {
-        return talismanCharaId;
+    public static void setBaseAtk(JsonObject element, int baseAtk) {
+        element.addProperty("_BaseAtk", baseAtk);
     }
-
-    public void setTalismanCharaId(int talismanCharaId) {
-        this.talismanCharaId = talismanCharaId;
+    public static int getTalismanCharaId(JsonObject element) {
+        return element.get("_TalismanCharaId").getAsInt();
     }
-
-    public int getSellCoin() {
-        return sellCoin;
+    public static void setTalismanCharaId(JsonObject element, int talismanCharaId) {
+        element.addProperty("_TalismanCharaId", talismanCharaId);
     }
-
-    public void setSellCoin(int sellCoin) {
-        this.sellCoin = sellCoin;
+    public static int getSellCoin(JsonObject element) {
+        return element.get("_SellCoin").getAsInt();
     }
-
-    
-
-    
-
-    
+    public static void setSellCoin(JsonObject element, int sellCoin) {
+        element.addProperty("_SellCoin", sellCoin);
+    }
 }

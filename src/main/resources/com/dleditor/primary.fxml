@@ -40,6 +40,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
@@ -128,6 +129,15 @@
                      </textFill>
                   </Label>
                   <TextField focusTraversable="false" layoutX="14.0" layoutY="240.0" prefHeight="26.0" prefWidth="135.0" promptText="Search..." AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="240.0" />
+                  <ProgressBar fx:id="loadChara" focusTraversable="false" layoutX="14.0" layoutY="389.0" prefHeight="18.0" prefWidth="135.0" progress="0.0" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                  <ProgressBar fx:id="loadDrag" layoutX="14.0" layoutY="454.0" prefHeight="18.0" prefWidth="135.0" progress="0.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                  <ProgressBar fx:id="loadWyrm" layoutX="14.0" layoutY="518.0" prefHeight="18.0" prefWidth="135.0" progress="0.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+                  <Label layoutX="14.0" layoutY="376.0" prefHeight="18.0" prefWidth="86.0" text="Adventurer List" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="63.0" />
+                  <Label fx:id="charaLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="96.0" layoutY="376.0" prefHeight="18.0" prefWidth="54.0" text="0/0" textAlignment="RIGHT" AnchorPane.bottomAnchor="157.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="13.0" />
+                  <Label layoutX="14.0" layoutY="436.0" prefHeight="18.0" prefWidth="66.0" text="Dragon List" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="83.0" />
+                  <Label fx:id="dragLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="83.0" layoutY="436.0" prefHeight="18.0" prefWidth="67.0" text="0/0" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="83.0" AnchorPane.rightAnchor="13.0" />
+                  <Label layoutX="14.0" layoutY="496.0" prefHeight="18.0" prefWidth="84.0" text="Wyrmprint List" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="65.0" />
+                  <Label fx:id="wyrmLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="96.0" layoutY="496.0" prefHeight="18.0" prefWidth="54.0" text="0/0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="96.0" AnchorPane.rightAnchor="13.0" />
           </children>
         </AnchorPane>
             <AnchorPane prefWidth="267.0">
@@ -156,7 +166,7 @@
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                   <AnchorPane fx:id="detailPane" layoutX="14.0" layoutY="46.0" prefHeight="504.0" prefWidth="482.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="46.0">
                      <children>
-                        <GridPane fx:id="advBasicDetailGrid" prefHeight="441.0" prefWidth="482.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane fx:id="advBasicDetailGrid" prefHeight="460.0" prefWidth="482.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.4" minWidth="10.0" prefWidth="211.8000244140625" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -192,8 +202,8 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Rarity:" />
-                                    <ChoiceBox fx:id="advRarityBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                    <Label text="Base ID:" />
+                                    <TextField fx:id="advBaseIdField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="5">
@@ -204,10 +214,6 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
-                                 <children>
-                                    <Label text="Weapon:" />
-                                    <ChoiceBox fx:id="advWeaponBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="4">
                                  <columnConstraints>
@@ -218,8 +224,8 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Element:" />
-                                    <ChoiceBox fx:id="advElementBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                    <Label text="Emblem ID:" />
+                                    <TextField fx:id="advEmblemIdField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
@@ -230,10 +236,6 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
-                                 <children>
-                                    <Label text="Role:" />
-                                    <ChoiceBox fx:id="advRoleBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="8">
                                  <columnConstraints>
@@ -271,7 +273,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Name:" />
-                                    <TextField fx:id="advNameBox" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advNameField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2">
@@ -283,8 +285,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Second Name:" />
-                                    <TextField fx:id="advSecondBox" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <Label text="Name ID:" />
+                                    <TextField fx:id="advNameIdField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="1">
@@ -296,8 +298,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Epithet:" />
-                                    <TextField fx:id="advEpithetBox" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <Label text="Second Name:" />
+                                    <TextField fx:id="advSecondField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="2">
@@ -309,8 +311,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Base ID:" />
-                                    <Label text="Label" GridPane.columnIndex="1" />
+                                    <Label text="Epithet:" />
+                                    <TextField fx:id="advEpithetField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -322,8 +324,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Full ID:" />
-                                    <Label text="Label" GridPane.columnIndex="1" />
+                                    <Label text="Epithet ID:" />
+                                    <TextField fx:id="advEpithetIdField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -335,8 +337,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Emblem ID:" />
-                                    <Label text="Label" GridPane.columnIndex="1" />
+                                    <Label text="Second Name ID:" />
+                                    <TextField fx:id="advSecondIdField" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="6">
@@ -347,6 +349,10 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Rarity:" />
+                                    <ChoiceBox fx:id="advRarityBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="7">
                                 <columnConstraints>
@@ -356,6 +362,10 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Element:" />
+                                    <ChoiceBox fx:id="advElementBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="9">
                                 <columnConstraints>
@@ -428,6 +438,10 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Full ID:" />
+                                    <TextField fx:id="advFullIdField" focusTraversable="false" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
                                 <columnConstraints>
@@ -446,6 +460,10 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Role:" />
+                                    <ChoiceBox fx:id="advRoleBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
                                 <columnConstraints>
@@ -455,6 +473,10 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Weapon:" />
+                                    <ChoiceBox fx:id="advWeaponBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="9">
                                 <columnConstraints>
@@ -537,6 +559,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                               </GridPane>
+                              <TextField fx:id="advVariationField" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="advButtonGrid" layoutX="2.0" layoutY="448.0" prefHeight="58.0" prefWidth="482.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -549,7 +572,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ToggleButton fx:id="advAdvancedButton" mnemonicParsing="false" onAction="#switchAdvDetails" text="Advanced Details" GridPane.columnIndex="1">
+                              <ToggleButton fx:id="advAdvancedButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Advanced Details" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -557,17 +580,17 @@
                                     <ToggleGroup fx:id="advDetailGroup" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="advSkillsButton" mnemonicParsing="false" onAction="#switchAdvDetails" text="Skills &amp; Abilities" toggleGroup="$advDetailGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <ToggleButton fx:id="advSkillsButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Skills &amp; Abilities" toggleGroup="$advDetailGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </ToggleButton>
-                              <ToggleButton fx:id="advBasicButton" mnemonicParsing="false" onAction="#switchAdvDetails" selected="true" text="Basic Details" toggleGroup="$advDetailGroup">
+                              <ToggleButton fx:id="advBasicButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" selected="true" text="Basic Details" toggleGroup="$advDetailGroup">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </ToggleButton>
-                              <ToggleButton fx:id="advStatsButton" mnemonicParsing="false" onAction="#switchAdvDetails" text="Stats" toggleGroup="$advDetailGroup" GridPane.rowIndex="1">
+                              <ToggleButton fx:id="advStatsButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Stats" toggleGroup="$advDetailGroup" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -1333,16 +1356,14 @@
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
-          <font>
-            <Font size="11.0" fx:id="x3" />
-          </font>
-          <textFill>
-            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
-          </textFill>
-        </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+        <Label maxWidth="-1.0" text="Right status" HBox.hgrow="NEVER">
+               <textFill>
+            <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
+               </textFill>
+               <font>
+            <Font size="11.0" fx:id="x3" />
+               </font></Label>
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />

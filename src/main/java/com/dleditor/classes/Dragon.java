@@ -1,260 +1,75 @@
 package com.dleditor.classes;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 import com.dleditor.Console;
+import com.google.gson.*;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 public class Dragon {
 
-    private int id; 
-    private String name; 
-    private String secondName; 
-    private int emblemId;
-    private int rarity;
-    private int elementalType;
-    private int maxLimitBreakCount;
-    private int baseId; 
-    private int variationId; 
-    private int isPlayable;
-    private int charaBaseId; 
-    private String animFileName;
-    private int deco1; 
-    private int deco2;
-    private int minHp; 
-    private int maxHp; 
-    private int addMaxHp1;
-    private int ninAtk;
-    private int naxAtk; 
-    private int addMaxAtk1; 
-    private int limitBreakId; 
-    private int skill1; 
-    private int skill2; 
-    private int skillFinalAttack; 
-    private int abilities11; 
-    private int abilities12; 
-    private int abilities13;
-    private int abilities14;
-    private int abilities15;
-    private int abilities16; 
-    private int abilities21;
-    private int abilities22; 
-    private int abilities23; 
-    private int abilities24;
-    private int abilities25; 
-    private int abilities26;
-    private String dragonExplosionDetail; 
-    private String dragonExplosionIcon; 
-    private String profile; 
-    private String releaseStartDate; 
-    private int favoriteType; 
-    private int voiceType; 
-    private String cvInfo; 
-    private String cvInfoEn;
-    private int sellCoin;
-    private int sellDewPoint;
-    private int limitBreakMaterialId;
-    private int defaultReliabilityLevel;
-    private int isNoneViewDragonContact;
-    private int avoidActionFront; 
-    private int avoidActionBack;
-    private int transform; 
-    private int defaultSkill; 
-    private int burstAttack; 
-    private int comboMax;
-    private int maxChargeLv;
-    private Double scaleSize;
-    private Double dcScaleSize;
-    private Double dcRotationY; 
-    private Double shadowSize; 
-    private Double gaugeHeightOffset; 
-    private Double moveSpeed; 
-    private Double dashSpeedRatio;
-    private Double turnSpeed; 
-    private int isTurnToDamageDir; 
-    private int isLongRangeInGame; 
-    private Double dragonCameraDistance; 
-    private int moveType;
-    private int isLongLange;
-    private int isDetailimage; 
-    private int silhouetteValue; 
-    private Double searchRange; 
-    private int aiType;
-    private String servantFollowPosition;
-    private int footprintsType;
-    private int dmodePassiveAbilityId;
-    private int uniqueIndex;
 
-    private String textFile = "src/main/resources/com/dleditor/files/TextLabel.json";
+    private static String textFile = "src/main/resources/com/dleditor/files/TextLabel.json";
 
     public Dragon(){
 
     }
 
-    public Dragon(int id, String name, String secondName, int emblemId, int rarity, int elementalType,
-            int maxLimitBreakCount, int baseId, int variationId, int isPlayable, int charaBaseId, String animFileName,
-            int deco1, int deco2, int minHp, int maxHp, int addMaxHp1, int ninAtk, int naxAtk, int addMaxAtk1,
-            int limitBreakId, int skill1, int skill2, int skillFinalAttack, int abilities11, int abilities12,
-            int abilities13, int abilities14, int abilities15, int abilities16, int abilities21, int abilities22,
-            int abilities23, int abilities24, int abilities25, int abilities26, String dragonExplosionDetail,
-            String dragonExplosionIcon, String profile, String releaseStartDate, int favoriteType, int voiceType,
-            String cvInfo, String cvInfoEn, int sellCoin, int sellDewPoint, int limitBreakMaterialId,
-            int defaultReliabilityLevel, int isNoneViewDragonContact, int avoidActionFront, int avoidActionBack,
-            int transform, int defaultSkill, int burstAttack, int comboMax, int maxChargeLv, Double scaleSize,
-            Double dcScaleSize, Double dcRotationY, Double shadowSize, Double gaugeHeightOffset, Double moveSpeed,
-            Double dashSpeedRatio, Double turnSpeed, int isTurnToDamageDir, int isLongRangeInGame,
-            Double dragonCameraDistance, int moveType, int isLongLange, int isDetailimage, int silhouetteValue,
-            Double searchRange, int aiType, String servantFollowPosition, int footprintsType, int dmodePassiveAbilityId,
-            int uniqueIndex) {
-        this.id = id;
-        this.name = name;
-        this.secondName = secondName;
-        this.emblemId = emblemId;
-        this.rarity = rarity;
-        this.elementalType = elementalType;
-        this.maxLimitBreakCount = maxLimitBreakCount;
-        this.baseId = baseId;
-        this.variationId = variationId;
-        this.isPlayable = isPlayable;
-        this.charaBaseId = charaBaseId;
-        this.animFileName = animFileName;
-        this.deco1 = deco1;
-        this.deco2 = deco2;
-        this.minHp = minHp;
-        this.maxHp = maxHp;
-        this.addMaxHp1 = addMaxHp1;
-        this.ninAtk = ninAtk;
-        this.naxAtk = naxAtk;
-        this.addMaxAtk1 = addMaxAtk1;
-        this.limitBreakId = limitBreakId;
-        this.skill1 = skill1;
-        this.skill2 = skill2;
-        this.skillFinalAttack = skillFinalAttack;
-        this.abilities11 = abilities11;
-        this.abilities12 = abilities12;
-        this.abilities13 = abilities13;
-        this.abilities14 = abilities14;
-        this.abilities15 = abilities15;
-        this.abilities16 = abilities16;
-        this.abilities21 = abilities21;
-        this.abilities22 = abilities22;
-        this.abilities23 = abilities23;
-        this.abilities24 = abilities24;
-        this.abilities25 = abilities25;
-        this.abilities26 = abilities26;
-        this.dragonExplosionDetail = dragonExplosionDetail;
-        this.dragonExplosionIcon = dragonExplosionIcon;
-        this.profile = profile;
-        this.releaseStartDate = releaseStartDate;
-        this.favoriteType = favoriteType;
-        this.voiceType = voiceType;
-        this.cvInfo = cvInfo;
-        this.cvInfoEn = cvInfoEn;
-        this.sellCoin = sellCoin;
-        this.sellDewPoint = sellDewPoint;
-        this.limitBreakMaterialId = limitBreakMaterialId;
-        this.defaultReliabilityLevel = defaultReliabilityLevel;
-        this.isNoneViewDragonContact = isNoneViewDragonContact;
-        this.avoidActionFront = avoidActionFront;
-        this.avoidActionBack = avoidActionBack;
-        this.transform = transform;
-        this.defaultSkill = defaultSkill;
-        this.burstAttack = burstAttack;
-        this.comboMax = comboMax;
-        this.maxChargeLv = maxChargeLv;
-        this.scaleSize = scaleSize;
-        this.dcScaleSize = dcScaleSize;
-        this.dcRotationY = dcRotationY;
-        this.shadowSize = shadowSize;
-        this.gaugeHeightOffset = gaugeHeightOffset;
-        this.moveSpeed = moveSpeed;
-        this.dashSpeedRatio = dashSpeedRatio;
-        this.turnSpeed = turnSpeed;
-        this.isTurnToDamageDir = isTurnToDamageDir;
-        this.isLongRangeInGame = isLongRangeInGame;
-        this.dragonCameraDistance = dragonCameraDistance;
-        this.moveType = moveType;
-        this.isLongLange = isLongLange;
-        this.isDetailimage = isDetailimage;
-        this.silhouetteValue = silhouetteValue;
-        this.searchRange = searchRange;
-        this.aiType = aiType;
-        this.servantFollowPosition = servantFollowPosition;
-        this.footprintsType = footprintsType;
-        this.dmodePassiveAbilityId = dmodePassiveAbilityId;
-        this.uniqueIndex = uniqueIndex;
-    }
-
-    public static ArrayList<Dragon> createDragonList(){
-        ArrayList<String> tempDrag = new ArrayList<>();
-        ArrayList<Dragon> dragonList = new ArrayList<>();
+    public static ArrayList<JsonObject> createDragonList() throws FileNotFoundException{
+        ArrayList<JsonObject> dragonList = new ArrayList<>();
         String fileName = "src/main/resources/com/dleditor/files/DragonData.json";
 
-        try {
-            ArrayList<String> baseFile = Console.splitFile(fileName, "},");
-            boolean firstID = true;
-            for(int i = 6; i < baseFile.size(); i++){
-                String[] currentLine = baseFile.get(i).split(",");
-                for(int k = 0; k < currentLine.length; k++){
-                    String[] currentEntry = currentLine[k].split(": ");
-                    if(i == 6 && firstID == true){
-                        tempDrag.add(currentEntry[3].strip());
-                        firstID = false;
-                    }else{
-                        tempDrag.add(currentEntry[1].replace("}","").replace("]","").strip());
-                    }
-  
-                }
-                if(tempDrag.size() != 2){
-                    Dragon newDragon = new Dragon(Integer.parseInt(tempDrag.get(0)),tempDrag.get(1),tempDrag.get(2),Integer.parseInt(tempDrag.get(3)),Integer.parseInt(tempDrag.get(4)),Integer.parseInt(tempDrag.get(5)),Integer.parseInt(tempDrag.get(6)),Integer.parseInt(tempDrag.get(7)),Integer.parseInt(tempDrag.get(8)),Integer.parseInt(tempDrag.get(9)),Integer.parseInt(tempDrag.get(10)),tempDrag.get(11),Integer.parseInt(tempDrag.get(12)),Integer.parseInt(tempDrag.get(13)),Integer.parseInt(tempDrag.get(14)),Integer.parseInt(tempDrag.get(15)),Integer.parseInt(tempDrag.get(16)),Integer.parseInt(tempDrag.get(17)),Integer.parseInt(tempDrag.get(18)),Integer.parseInt(tempDrag.get(19)),Integer.parseInt(tempDrag.get(20)),Integer.parseInt(tempDrag.get(21)),Integer.parseInt(tempDrag.get(22)),Integer.parseInt(tempDrag.get(23)),Integer.parseInt(tempDrag.get(24)),Integer.parseInt(tempDrag.get(25)),Integer.parseInt(tempDrag.get(26)),Integer.parseInt(tempDrag.get(27)),Integer.parseInt(tempDrag.get(28)),Integer.parseInt(tempDrag.get(29)),Integer.parseInt(tempDrag.get(30)),Integer.parseInt(tempDrag.get(31)),Integer.parseInt(tempDrag.get(32)),Integer.parseInt(tempDrag.get(33)),Integer.parseInt(tempDrag.get(34)),Integer.parseInt(tempDrag.get(35)),tempDrag.get(36),tempDrag.get(37),tempDrag.get(38),tempDrag.get(39),Integer.parseInt(tempDrag.get(40)),Integer.parseInt(tempDrag.get(41)),tempDrag.get(42),tempDrag.get(43),Integer.parseInt(tempDrag.get(44)),Integer.parseInt(tempDrag.get(45)),Integer.parseInt(tempDrag.get(46)),Integer.parseInt(tempDrag.get(47)),Integer.parseInt(tempDrag.get(48)),Integer.parseInt(tempDrag.get(49)),Integer.parseInt(tempDrag.get(50)),Integer.parseInt(tempDrag.get(51)),Integer.parseInt(tempDrag.get(52)),Integer.parseInt(tempDrag.get(53)),Integer.parseInt(tempDrag.get(54)),Integer.parseInt(tempDrag.get(55)),Double.parseDouble(tempDrag.get(56)),Double.parseDouble(tempDrag.get(57)),Double.parseDouble(tempDrag.get(58)),Double.parseDouble(tempDrag.get(59)),Double.parseDouble(tempDrag.get(60)),Double.parseDouble(tempDrag.get(61)),Double.parseDouble(tempDrag.get(62)),Double.parseDouble(tempDrag.get(63)),Integer.parseInt(tempDrag.get(64)),Integer.parseInt(tempDrag.get(65)),Double.parseDouble(tempDrag.get(66)),Integer.parseInt(tempDrag.get(67)),Integer.parseInt(tempDrag.get(68)),Integer.parseInt(tempDrag.get(69)),Integer.parseInt(tempDrag.get(70)),Double.parseDouble(tempDrag.get(71)),Integer.parseInt(tempDrag.get(72)),tempDrag.get(73),Integer.parseInt(tempDrag.get(74)),Integer.parseInt(tempDrag.get(75)),Integer.parseInt(tempDrag.get(76)));
-                    dragonList.add(newDragon);
-                }
-                
-                
-                tempDrag = new ArrayList<>();
-            }
-            
-        } catch (FileNotFoundException e) {
-            System.out.println("Uh oh, stinky!");
-        }
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new FileReader(fileName));
+        JsonObject data = gson.fromJson(reader, JsonObject.class);
+        JsonObject dict = data.get("dict").getAsJsonObject();
+        JsonObject entries = dict.get("entriesValue").getAsJsonObject();
+        JsonArray dragonEntries = entries.get("Array").getAsJsonArray();
 
+        for(JsonElement element : dragonEntries){
+            dragonList.add(element.getAsJsonObject());
+        }
+        
         return dragonList;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
+    public static String getName(JsonObject element) {
+        String name = element.get("_Name").getAsString();
         try{
-            return Console.grabText(textFile, this.name, 1).split(": ")[1].replace('"',' ').strip();
+            return Console.grabText(textFile, name, 1).split(": ")[1].replace('"',' ').strip();
         }catch(Exception e){
             return "Name not Found";
         }
     }
-
-    public void setName(String name) {
-        this.name = name;
+    
+    public static String getNameId(JsonObject element) {
+        return element.get("_Name").getAsString();
     }
-
-    public String getSecondName() {
+    public static void setNameId(JsonObject element, String name) {
+        element.addProperty("_Name", name);
+    }
+    public static String getSecondName(JsonObject element) {
+        String secondName = element.get("_SecondName").getAsString();
         try{
-            return Console.grabText(textFile, this.secondName, 1).split(": ")[1].replace('"',' ').strip();
+            return Console.grabText(textFile, secondName, 1).split(": ")[1].replace('"',' ').strip();
         }catch(Exception e){
             return "Name not Found";
         }
     }
-
-    public void setsecondName(String secondName) {
-        this.secondName = secondName;
+    public static String getSecondNameId(JsonObject element) {
+        return element.get("_SecondName").getAsString();
     }
-
-    public String getFullName(){
+    public static void setSecondNameId(JsonObject element, String secondName) {
+        element.addProperty("_SecondName", secondName);
+    }
+    public static String getFullName(JsonObject element){
         String tempName;
+        int id = element.get("_Id").getAsInt();
+        String name = element.get("_Name").getAsString();
+        String secondName = element.get("_SecondName").getAsString();
         /*Unplayable/Unique Shapeshift IDs are these, do something about them:
         29900006
         29900014
@@ -312,7 +127,7 @@ public class Dragon {
         29950320
         */
         try{
-            switch(this.id){
+            switch(id){
                 case 29900001:{tempName="Unplayable ID: " + id;break;}
                 case 29900002:{tempName="Unplayable ID: " + id;break;}
                 case 29900003:{tempName="Unplayable ID: " + id;break;}
@@ -363,13 +178,13 @@ public class Dragon {
                 case 29950121:{tempName="Unplayable ID: " + id;break;}
                 case 29950320:{tempName="Unplayable ID: " + id;break;}
                 default :{
-                    tempName = Console.grabText(textFile, this.secondName, 1).split(": ")[1].replace('"',' ').strip();
+                    tempName = Console.grabText(textFile, secondName, 1).split(": ")[1].replace('"',' ').strip();
                     break;
                 }
             }
         }catch(Exception e){
             try{
-                tempName = Console.grabText(textFile, this.name, 1).split(": ")[1].replace('"',' ').strip();
+                tempName = Console.grabText(textFile, name, 1).split(": ")[1].replace('"',' ').strip();
             }catch(Exception e1){
                 tempName = "Unknown ID: " + id;
             }
@@ -379,6 +194,26 @@ public class Dragon {
 
     }
 
+    
+    public static String getElementalType(JsonObject element) {
+        return Types.getElement(element.get("_ElementalType").getAsInt());
+    }
+    
+    /* public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setsecondName(String secondName) {
+        this.secondName = secondName;
+    }
 
     public int getEmblemId() {
         return emblemId;
@@ -970,7 +805,5 @@ public class Dragon {
 
     public void setUniqueIndex(int uniqueIndex) {
         this.uniqueIndex = uniqueIndex;
-    }
-    
-    
+    } */
 }
