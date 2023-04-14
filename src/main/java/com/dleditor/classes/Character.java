@@ -35,8 +35,7 @@ public class Character{
         JsonArray characterEntries = entries.get("Array").getAsJsonArray();
 
         //For each element in characterEntries, add a new json object to characterList
-        //As far as I know, the only way I can do this is through this
-        //Using an array list so I can add minimal things when we figure out how to add entirely new entries
+        //As far as I know, the only way I can do this is through this 
         for(JsonElement element : characterEntries){
             characterList.add(element.getAsJsonObject());
         }
@@ -159,6 +158,14 @@ public class Character{
     public static void setEmblemId(JsonObject element, int emblemId) {
         element.addProperty("_EmblemId",emblemId);
     }
+    public static String getEpithet(JsonObject element){
+        String epithet = "EMBLEM_NAME_"+getEmblemId(element);
+        try{
+            return Console.grabText(textFile, epithet, 1).split(": ")[1].replace('"',' ').strip();
+        }catch(Exception e){
+            return "Epithet not Found";
+        }
+    }
     public static String getWeaponType(JsonObject element) {
         return Types.getWeapon(element.get("_WeaponType").getAsInt());
     }
@@ -177,15 +184,14 @@ public class Character{
     public static void setCharaType(JsonObject element, int charaType) {
         element.addProperty("_CharaType", charaType);
     }
-    
-    //I'll deal with these later
-/*     public static int getRarity(JsonObject element) {
-        return element.get() rarity;
+    public static int getRarity(JsonObject element) {
+        return element.get("_Rarity").getAsInt();
     }
     public static void setRarity(JsonObject element, int rarity) {
-        this.rarity = rarity;
+        element.addProperty("_Rarity",rarity);
     }
-    public static int getMaxLimitBreakCount(JsonObject element) {
+    //I'll deal with these later
+/*    public static int getMaxLimitBreakCount(JsonObject element) {
         return element.get() maxLimitBreakCount;
     }
     public static void setMaxLimitBreakCount(JsonObject element, int maxLimitBreakCount) {

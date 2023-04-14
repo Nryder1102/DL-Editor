@@ -61,39 +61,27 @@
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu fx:id="fileMenu" mnemonicParsing="false" onShown="#checkTasks" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem mnemonicParsing="false" onAction="#openFolder" text="Open Location" />
+                  <MenuItem fx:id="rebuildButton" mnemonicParsing="false" onAction="#rebuildLists" text="Rebuild Lists" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" onAction="#saveChanges" text="Save" />
+            <MenuItem mnemonicParsing="false" onAction="#saveChangesAs" text="Save As…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
+            <MenuItem mnemonicParsing="false" onAction="#openPreferences" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem mnemonicParsing="false" onAction="#revertChanges" text="Revert Unsaved Changes" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" text="Contact Me!" />
           </items>
         </Menu>
       </menus>
@@ -201,10 +189,6 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
-                                 <children>
-                                    <Label text="Base ID:" />
-                                    <TextField fx:id="advBaseIdField" focusTraversable="false" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="5">
                                  <columnConstraints>
@@ -214,6 +198,10 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
+                                 <children>
+                                    <Label text="Element:" />
+                                    <ChoiceBox fx:id="advElementBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="4">
                                  <columnConstraints>
@@ -224,8 +212,8 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Label text="Emblem ID:" />
-                                    <TextField fx:id="advEmblemIdField" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <Label text="Rarity:" />
+                                    <ChoiceBox fx:id="advRarityBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
@@ -236,6 +224,10 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
+                                 <children>
+                                    <Label text="Weapon:" />
+                                    <ChoiceBox fx:id="advWeaponBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="8">
                                  <columnConstraints>
@@ -245,10 +237,6 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
-                                 <children>
-                                    <Label text="JP VA:" />
-                                    <Label fx:id="advJPVA" text="Label" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="8">
                                  <columnConstraints>
@@ -258,61 +246,59 @@
                                  <rowConstraints>
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
-                                 <children>
-                                    <Label text="English VA:" />
-                                    <Label fx:id="advENVA" text="Label" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane>
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.20001220703125" minWidth="10.0" prefWidth="46.60003662109375" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="170.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="Name:" />
-                                    <TextField fx:id="advNameField" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advNameField" alignment="CENTER" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <Label text="Name ID:" />
-                                    <TextField fx:id="advNameIdField" focusTraversable="false" GridPane.columnIndex="1" />
-                                 </children>
-                              </GridPane>
-                              <GridPane GridPane.rowIndex="1">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.199951171875" minWidth="10.0" prefWidth="90.39990234375" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="140.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="Second Name:" />
-                                    <TextField fx:id="advSecondField" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSecondField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <GridPane GridPane.rowIndex="2">
+                              <GridPane GridPane.rowIndex="1">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.20001220703125" minWidth="10.0" prefWidth="47.99996337890625" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="170.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
                                     <Label text="Epithet:" />
-                                    <TextField fx:id="advEpithetField" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEpithetField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="2">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.80003509521484" minWidth="10.0" prefWidth="109.20006713867187" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Base ID:" />
+                                    <TextField fx:id="advBaseIdField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advVariationField" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -324,8 +310,8 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Epithet ID:" />
-                                    <TextField fx:id="advEpithetIdField" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <Label text="Full ID:" />
+                                    <TextField fx:id="advFullIdField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -336,10 +322,6 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Second Name ID:" />
-                                    <TextField fx:id="advSecondIdField" focusTraversable="false" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="6">
                                 <columnConstraints>
@@ -349,22 +331,18 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Rarity:" />
-                                    <ChoiceBox fx:id="advRarityBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="7">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="104.19998168945312" minWidth="10.0" prefWidth="44.999969482421875" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="175.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Element:" />
-                                    <ChoiceBox fx:id="advElementBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                    <Label text="JP VA:" />
+                                    <Label fx:id="advJPVA" text="Label" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="9">
@@ -438,21 +416,8 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
-                                 <children>
-                                    <Label text="Full ID:" />
-                                    <TextField fx:id="advFullIdField" focusTraversable="false" GridPane.columnIndex="1" />
-                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -465,7 +430,7 @@
                                     <ChoiceBox fx:id="advRoleBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -473,9 +438,18 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.5999755859375" minWidth="10.0" prefWidth="68.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="165.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <Label text="Weapon:" />
-                                    <ChoiceBox fx:id="advWeaponBox" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                    <Label text="English VA:" />
+                                    <Label fx:id="advENVA" text="Label" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="9">
@@ -559,7 +533,6 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                               </GridPane>
-                              <TextField fx:id="advVariationField" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="30.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="NEVER" GridPane.rowIndex="3" GridPane.vgrow="NEVER" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="advButtonGrid" layoutX="2.0" layoutY="448.0" prefHeight="58.0" prefWidth="482.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -1357,7 +1330,7 @@
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label maxWidth="-1.0" text="Right status" HBox.hgrow="NEVER">
+        <Label maxWidth="-1.0" HBox.hgrow="NEVER">
                <textFill>
             <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
                </textFill>

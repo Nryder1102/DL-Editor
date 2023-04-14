@@ -1,25 +1,47 @@
 package com.dleditor;
-import javafx.event.EventHandler;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import javafx.beans.value.ChangeListener;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import com.dleditor.classes.Character;
 import com.dleditor.classes.Dragon;
 import com.dleditor.classes.Talisman;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.WindowEvent;
 
 public class PrimaryController extends App{
 
@@ -92,11 +114,14 @@ public class PrimaryController extends App{
     @FXML private TextField advEntityIDField;
     @FXML private TextField advEntityQuantityField;
     @FXML private TextField advEntityTypeField;
-    @FXML private TextField advEpithetBox;
+    @FXML private TextField advEpithetField;
     @FXML private TextField advHoldCostField;
     @FXML private TextField advMaxChargeField;
-    @FXML private TextField advNameBox;
-    @FXML private TextField advSecondBox;
+    @FXML private TextField advNameField;
+    @FXML private TextField advSecondField;
+    @FXML private TextField advFullIdField;
+    @FXML private TextField advBaseIdField;
+    @FXML private TextField advVariationField;
     @FXML private TextField advSkillCostField;
     @FXML private TextField advSkillIDField;
     @FXML private TextField advSkillLevelField;
@@ -125,8 +150,11 @@ public class PrimaryController extends App{
     private ArrayList<Button> wyrmButtons = new ArrayList<>();
 
     ArrayList<JsonObject> characterList;
+    ArrayList<JsonObject> changedCharacters;
     ArrayList<JsonObject> dragonList;
+    ArrayList<JsonObject> changedDragons;
     ArrayList<JsonObject> talismanList;
+    ArrayList<JsonObject> changedTalismans;
 
     @FXML private Label charaLabel;
     @FXML private Label dragLabel;
@@ -143,6 +171,19 @@ public class PrimaryController extends App{
     private static final String[] barColorStyleClasses = { RED_BAR, ORANGE_BAR, YELLOW_BAR, GREEN_BAR };
 
     private int currentChar;
+
+    private static boolean getEmpty = false;
+
+    private String[] requiredFiles = {"src\\main\\resources\\com\\dleditor\\files\\CharaData.json","src\\main\\resources\\com\\dleditor\\files\\DragonData.json","src\\main\\resources\\com\\dleditor\\files\\TalismanData.json","src\\main\\resources\\com\\dleditor\\files\\TextLabel.json"};
+
+    private ButtonType recheckFiles = new ButtonType("Check for Files", ButtonBar.ButtonData.OK_DONE);
+    private ButtonType openLocation = new ButtonType("Open File Location", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+    private boolean task1Done = false;
+    private boolean task2Done = false;
+    private boolean task3Done = false;
+
+    @FXML private MenuItem rebuildButton;
     
     //Basic Controls
     //Ughhhhhhhh 
@@ -150,6 +191,7 @@ public class PrimaryController extends App{
 
     @FXML
     private void initialize(){
+        
 
         //Collection of arrays
         mainList = new ToggleButton[]{charButton,dragButton,wyrmButton};
@@ -164,15 +206,6 @@ public class PrimaryController extends App{
         advChargeList = new TextField[]{advChargeTypeField,advMaxChargeField,advBAChargeField,advDefaultBAField};
         advEditSkillList = new TextField[]{advEntityIDField,advEntityQuantityField,advEntityTypeField,advHoldCostField,advSkillCostField,advSkillLevelField,advSkillRelationField,advDefaultUnlockedField,advSkillIDField,advUnuseDmodeSkillField};
         advLevelList = new TextField[]{advDefaultAbility1Field,advDefaultAbility2Field,advDefaultAbility3Field,advConvertDragonField};
-        try {
-            characterList = Character.createCharacterList();
-            dragonList = Dragon.createDragonList();
-            talismanList = Talisman.createTalismanList();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
 
         //Basic detail page dropdown lists
         advElementBox.setItems(elementList);
@@ -204,14 +237,12 @@ public class PrimaryController extends App{
         setBarStyleClass(loadDrag, GREEN_BAR);
         setBarStyleClass(loadWyrm, GREEN_BAR);
         
-
-        //Start making the lists
-        makeLists();
-
         //Add css to the progress bars
         loadChara.getStylesheets().add(getClass().getResource("base.css").toExternalForm());
         loadDrag.getStylesheets().add(getClass().getResource("base.css").toExternalForm());
         loadWyrm.getStylesheets().add(getClass().getResource("base.css").toExternalForm());
+
+        fileCheck();
         
     }
 
@@ -267,13 +298,29 @@ public class PrimaryController extends App{
         for(int i = 0; i < characterList.size(); i++){
             if(characterList.get(i).get("_Id").getAsInt() == Integer.parseInt(source.getId())){
                 currentChar = i;
-                advNameBox.setPromptText(Character.getName(characterList.get(i)));
-                advSecondBox.setPromptText(Character.getSecondName(characterList.get(i)));
-                if(Character.getSecondName(characterList.get(i)) == "Name not Found"){
-                    advSecondBox.setDisable(true);
-                }else{
-                    advSecondBox.setDisable(false);
+                /*This is a stopgap*/Console.compareChanges(advNameField, Character.getName(characterList.get(i)), Character.getName(changedCharacters.get(i)));
+                /*This is a stopgap*/Console.compareChanges(advSecondField, Character.getSecondName(characterList.get(i)), Character.getSecondName(changedCharacters.get(i)));
+                if(Character.getSecondName(characterList.get(i)) == "Name not Found"){advSecondField.setDisable(true);}else{advSecondField.setDisable(false);}
+                Console.compareChanges(advBaseIdField, Character.getBaseId(characterList.get(i)), Character.getBaseId(changedCharacters.get(i)));
+                Console.compareChanges(advFullIdField, Character.getId(characterList.get(i)), Character.getId(changedCharacters.get(i)));
+                Console.compareChanges(advVariationField, Character.getVariationId(characterList.get(i)), Character.getVariationId(changedCharacters.get(i)));
+                /*This is a stopgap*/Console.compareChanges(advEpithetField, Character.getEpithet(characterList.get(i)), Character.getEpithet(changedCharacters.get(i)));
+                if(Character.getRarity(characterList.get(i)) == 3){
+                    rarityList = FXCollections.observableArrayList(3,4,5);
+                    advRarityBox.setItems(rarityList);
+                    advRarityBox.setValue(3);
+                }else if(Character.getRarity(characterList.get(i)) == 4){
+                    rarityList = FXCollections.observableArrayList(4,5);
+                    advRarityBox.setItems(rarityList);
+                    advRarityBox.setValue(4);
+                }else if(Character.getRarity(characterList.get(i)) == 5){
+                    rarityList = FXCollections.observableArrayList(5);
+                    advRarityBox.setItems(rarityList);
+                    advRarityBox.setValue(5);
                 }
+                advElementBox.setValue(Character.getElementalType(characterList.get(i)));
+                advRoleBox.setValue(Character.getCharaType(characterList.get(i)));
+                advWeaponBox.setValue(Character.getWeaponType(characterList.get(i)));
             }
         }
         
@@ -281,25 +328,52 @@ public class PrimaryController extends App{
 
 
     private void makeLists(){
-        loadChara.setProgress(-1);
-        loadDrag.setProgress(-1);
-        loadWyrm.setProgress(-1);
-
         //Make the character list of buttons
+        ArrayList<Object[]> v = new ArrayList<>();
+        List<String> keys = characterList.get(0).entrySet()
+            .stream()
+            .map(i -> i.getKey())
+            .collect(Collectors.toCollection(ArrayList::new));
+
+        for(JsonObject element : characterList){
+            ArrayList<Object> temp = new ArrayList<>();
+            for(String key : keys){
+                
+                temp.add(element.get(key));
+               
+            }
+            temp.set(1,"z");
+            temp.set(2,"x");
+            temp.set(3,"y");
+            v.add(temp.toArray());
+        }
+        System.out.println(v.get(2)[1]);
         makeCharaList = new Task<ArrayList<Button>>() {
             @Override protected ArrayList<Button> call() throws Exception {
-                for(int i = 0; i < characterList.size(); i++){
+                task1Done = false;
+                int listSize = 1;
+                //Get the size of list without empty objects if getEmpty is false
+                if(getEmpty == false){
+                    for(JsonObject object : characterList){
+                        if(object.get("_Id").getAsInt() != 0){
+                            listSize++;
+                        }
+                    }
+                }else{
+                    listSize = characterList.size();
+                }
+
+                for(int i = 0; i < listSize; i++){
                     if(isCancelled()){
                         break;
                     }
-                    //If id != 0, add to list
-                    if(characterList.get(i).get("_Id").getAsInt() != 0){
-                        charaButtons.add(new Button(Character.getFullName(characterList.get(i))));
-                        charaButtons.get(i).setId(characterList.get(i).get("_Id").getAsString());
-                        charaButtons.get(i).setOnAction(e -> switchAdvDetails(((Button)e.getSource())));
-                    }
-                    updateProgress(i+1, characterList.size());
-                    updateMessage(i+1 + "/" + characterList.size());
+                   
+                    charaButtons.add(new Button(Character.getFullName(characterList.get(i))));
+                    charaButtons.get(i).setId(characterList.get(i).get("_Id").getAsString());
+                    charaButtons.get(i).setOnAction(e -> switchAdvDetails(((Button)e.getSource())));
+                    
+                    updateProgress(i+1, listSize);
+                    updateMessage(i+1 + "/" + listSize);
                 }
                 return charaButtons;
             }
@@ -308,24 +382,37 @@ public class PrimaryController extends App{
         makeCharaList.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent t) {
-                
+                task1Done = true;
             }
         });
 
         //Make the dragon list of buttons
         makeDragonList = new Task<Void>() {
             @Override protected Void call() throws Exception {
-                for(int i = 0; i < dragonList.size(); i++){
+                task2Done = false;
+                int listSize = 1;
+
+                //Get the size of list without empty objects if getEmpty is false
+                if(getEmpty == false){
+                    for(JsonObject object : dragonList){
+                        if(object.get("_Id").getAsInt() != 0){
+                            listSize++;
+                        }
+                    }
+                }else{
+                    listSize = dragonList.size();
+                }
+
+                for(int i = 0; i < listSize; i++){
                     if(isCancelled()){
                         break;
                     }
-                    //If id != 0, add to list
-                    if(dragonList.get(i).get("_Id").getAsInt() != 0){
-                        dragonButtons.add(new Button(Dragon.getFullName(dragonList.get(i))));
-                        dragonButtons.get(i).setId(dragonList.get(i).get("_Id").getAsString());
-                    } 
-                    updateProgress(i+1, dragonList.size());
-                    updateMessage(i+1 + "/" + dragonList.size());
+    
+                    dragonButtons.add(new Button(Dragon.getFullName(dragonList.get(i))));
+                    dragonButtons.get(i).setId(dragonList.get(i).get("_Id").getAsString());
+                   
+                    updateProgress(i+1, listSize);
+                    updateMessage(i+1 + "/" + listSize);
                 }
                 return null;
             }
@@ -333,24 +420,38 @@ public class PrimaryController extends App{
         makeDragonList.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent t) {
-                
+                task2Done = true;
             }
         });
 
         //Make the wyrmprint list of buttons
         makeWyrmList = new Task<Void>() {
             @Override protected Void call() throws Exception {
-                for(int i = 0; i < talismanList.size(); i++){
+                task3Done = false;
+                int listSize = 1;
+
+                //Get the size of list without empty objects if getEmpty is false
+                if(getEmpty == false){
+                    for(JsonObject object : talismanList){
+                        if(object.get("_Id").getAsInt() != 0){
+                            listSize++;
+                        }
+                    }
+                }else{
+                    listSize = talismanList.size();
+                }
+
+                //Make the list of Wyrmprint buttons
+                for(int i = 0; i < listSize; i++){
                     if(isCancelled()){
                         break;
                     }
-                    //If id != 0, add to list
-                    if(talismanList.get(i).get("_Id").getAsInt() != 0){
-                        wyrmButtons.add(new Button(Talisman.getName(talismanList.get(i))));
-                        wyrmButtons.get(i).setId(talismanList.get(i).get("_Id").getAsString());
-                    }
-                    updateProgress(i+1, talismanList.size());
-                    updateMessage(i+1 + "/" + talismanList.size());
+                    
+                    wyrmButtons.add(new Button(Talisman.getName(talismanList.get(i))));
+                    wyrmButtons.get(i).setId(talismanList.get(i).get("_Id").getAsString());
+                    
+                    updateProgress(i+1, listSize);
+                    updateMessage(i+1 + "/" + listSize);
                 }
                 return null;
             }
@@ -358,7 +459,7 @@ public class PrimaryController extends App{
         makeWyrmList.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent t) {
-                
+                task3Done = true;
             }
         });
 
@@ -402,4 +503,132 @@ public class PrimaryController extends App{
         bar.getStyleClass().add(barStyleClass);
     } 
 
+
+    @FXML
+    private void openFolder(){
+        try {
+			Runtime.getRuntime().exec("explorer.exe /select," + "src\\main\\resources\\com\\dleditor\\files\\");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    private void fileCheck(){
+        try {
+            characterList = Character.createCharacterList();
+            changedCharacters = characterList;
+            dragonList = Dragon.createDragonList();
+            changedDragons = dragonList;
+            talismanList = Talisman.createTalismanList();
+            changedTalismans = talismanList;
+            if(Console.doesFileExist(requiredFiles[3]) != true){
+                throw new IOException();
+            }
+            makeLists();
+        } catch (IOException e) {
+            String missingFiles = "";
+            for(String file : requiredFiles){
+                if(Console.doesFileExist(file) != true){
+                    missingFiles+=file+"\n";
+                }
+            }
+            if(missingFiles != ""){
+                Alert missingAlert = new Alert(AlertType.NONE, "Missing Required Files!\n"+missingFiles, recheckFiles,openLocation,ButtonType.CANCEL);
+                Optional<ButtonType> choice = missingAlert.showAndWait(); 
+                if(choice.isPresent() && choice.get() == recheckFiles){
+                    fileCheck();
+                }else if(choice.isPresent() && choice.get() == openLocation){
+                    openFolder();
+                    fileCheck();
+                }else if(choice.isPresent() && choice.get() == ButtonType.CANCEL){
+                    Platform.exit();
+                    System.exit(0);
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void saveChanges(){
+
+    }
+
+    @FXML
+    private void saveChangesAs(){
+
+    }
+
+    @FXML 
+    private void revertChanges(){
+
+    }
+
+    @FXML
+    private void rebuildLists(){
+        Alert alert = createAlertWithCheckBox(AlertType.NONE, "Rebuild Lists", null, "Would you like to rebuild the button lists?", "Include Empty IDs?", event -> getEmpty = event, ButtonType.YES, ButtonType.NO);
+        if (alert.showAndWait().filter(t -> t == ButtonType.YES).isPresent()) {
+            charaButtons.clear();
+            dragonButtons.clear();
+            wyrmButtons.clear();
+            makeLists();
+        }
+    }
+
+    @FXML 
+    private void openPreferences(){
+
+    }
+
+    @FXML
+    private void closeWindow(){
+        Alert confirmAlert = new Alert(AlertType.NONE, "Are you sure you wish to quit?\nUnsaved changes will be lost", ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> choice = confirmAlert.showAndWait(); 
+        if(choice.isPresent() && choice.get() == ButtonType.YES){ 
+            Platform.exit();
+            System.exit(0);
+        }
+    }
+
+    @FXML
+    private void checkTasks(){
+        if(task1Done && task2Done && task3Done){
+            rebuildButton.setDisable(false);
+            getEmpty = false;
+        }else{
+            rebuildButton.setDisable(true);
+        }
+    }
+
+    public static Alert createAlertWithCheckBox(AlertType type, String title, String headerText, String message, String checkboxPrompt, Consumer<Boolean> checkboxAction, ButtonType... buttonTypes) {
+                Alert alert = new Alert(type);
+                // Need to force the alert to layout in order to grab the graphic,
+                // as we are replacing the dialog pane with a custom pane
+                alert.getDialogPane().applyCss();
+                Node graphic = alert.getDialogPane().getGraphic();
+                // Create a new dialog pane that has a checkbox instead of the hide/show details button
+                // Use the supplied callback for the action of the checkbox
+                alert.setDialogPane(new DialogPane() {
+                @Override
+                protected Node createDetailsButton() {
+                    CheckBox checkbox = new CheckBox();
+                    checkbox.setText(checkboxPrompt);
+                    checkbox.setOnAction(e -> checkboxAction.accept(checkbox.isSelected()));
+                    return checkbox;
+                }
+                });
+                alert.getDialogPane().getButtonTypes().addAll(buttonTypes);
+                alert.getDialogPane().setContentText(message);
+                // Fool the dialog into thinking there is some expandable content
+                // a Group won't take up any space if it has no children
+                alert.getDialogPane().setExpandableContent(new Group());
+                alert.getDialogPane().setExpanded(true);
+                // Reset the dialog graphic using the default style
+                alert.getDialogPane().setGraphic(graphic);
+                alert.setTitle(title);
+                alert.setHeaderText(headerText);
+                return alert;
+            }
+
 }
+

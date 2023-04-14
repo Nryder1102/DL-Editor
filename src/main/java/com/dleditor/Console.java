@@ -12,10 +12,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.google.gson.JsonObject;
+
 import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -435,34 +439,23 @@ public abstract class Console {
      */
     public static String grabText(String fileName, String searchTerm, int step) throws FileNotFoundException{
         String text = "";
-        ArrayList<String> fileContents = new ArrayList<String>();
-
         try{
             BufferedReader in = new BufferedReader(new FileReader(fileName));
-            String curLine = in.readLine();
-            fileContents.add(curLine);
-            while(curLine != null) {
+            String curLine = "";
+            for(int i = 0; i < 1000000; i++){
                 curLine = in.readLine();
-                fileContents.add(curLine);
+                if(curLine.contains("_Id") && curLine.contains(searchTerm)){
+                    break;
+                }
             }
-            fileContents.remove(null);
-            fileContents.remove("");
-
+            for(int k = 0; k < step; k++){
+                curLine = in.readLine();
+            }
+            text = curLine;
             in.close();
         }catch (FileNotFoundException e) {
         }catch (IOException e1) {
         }
-
-        for(int i = 0; i < fileContents.size(); i++){
-            if(fileContents.get(i).contains(searchTerm)){
-                if(step != 0){
-                    text = fileContents.get(i+step);
-                }else{
-                    text = fileContents.get(i);
-                }
-            }
-        }
-
         return text;
     }
 
@@ -649,5 +642,18 @@ public abstract class Console {
             }catch(Exception e1){}
         }
     }
-    
+
+    public static void compareChanges(Node element, Object base, Object changed){
+        try{
+            ((TextField) element).setPromptText(""+base);
+            if(base.equals(changed)){
+                ((TextField) element).setText(null);
+            }else{
+                ((TextField) element).setText(""+changed);
+            }
+        }catch(Exception e){
+
+        }
+        
+    }
 }
