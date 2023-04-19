@@ -134,4 +134,101 @@ public class Types {
         return role;
     }
 
+    public static int getWeapon(String type){
+        int weapon = 0;
+        switch(type){
+            case "Sword":{
+                weapon = 1;
+                break;
+            }
+            case "Blade":{
+                weapon = 2;
+                break;
+            }
+            case "Dagger":{
+                weapon = 3;
+                break;
+            }
+            case "Axe":{
+                weapon = 4;
+                break;
+            }
+            case "Lance":{
+                weapon = 5;
+                break;
+            }
+            case "Bow":{
+                weapon = 6;
+                break;
+            }
+            case "Wand":{
+                weapon = 7;
+                break;
+            }
+            case "Staff":{
+                weapon = 8;
+                break;
+            }
+            case "Manacaster":{
+                weapon = 9;
+                break;
+            }
+        }
+        return weapon;
+    }
+
+    public static int getElement(String type){
+        int element = 0;
+        switch(type){
+            case "Fire":{
+                element = 1;
+                break;
+            }
+            case "Water":{
+                element = 2;
+                break;
+            }
+            case "Wind":{
+                element = 3;
+                break;
+            }
+            case "Light":{
+                element = 4;
+                break;
+            }
+            case "Shadow":{
+                element = 5;
+                break;
+            }
+            case "None":{
+                element = 99;
+                break;
+            }
+        }
+        return element;
+    }
+
+    public static int getRole(String type){
+        int role = 0;
+        switch(type){
+            case "Attack":{
+                role = 1;
+                break;
+            }
+            case "Defense":{
+                role = 2;
+                break;
+            }
+            case "Support":{
+                role = 3;
+                break;
+            }
+            case "Healer":{
+                role = 4;
+                break;
+            }
+        }
+        return role;
+    }
+
 }

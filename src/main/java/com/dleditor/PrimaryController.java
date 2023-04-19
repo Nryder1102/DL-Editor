@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import com.dleditor.classes.Character;
 import com.dleditor.classes.Dragon;
 import com.dleditor.classes.Talisman;
+import com.dleditor.classes.Types;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -21,17 +22,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -60,41 +64,41 @@ public class PrimaryController extends App{
     @FXML private GridPane advSkillsDetailGrid2;
     @FXML private GridPane[] advDetailGrids;
     @FXML private CheckBox advEditSkill1;
-    @FXML private TextField advSkillField1;
+    @FXML private TextField advSkill1;
     @FXML private CheckBox advEditSkill2;
-    @FXML private TextField advSkillField2;
+    @FXML private TextField advSkill2;
     @FXML private CheckBox advEditAbility1;
     @FXML private CheckBox advEditAbility2;
     @FXML private CheckBox advEditAbility3;
     @FXML private CheckBox[] advCheckBoxList;
-    @FXML private TextField advAbilityField11;
-    @FXML private TextField advAbilityField12;
-    @FXML private TextField advAbilityField13;
-    @FXML private TextField advAbilityField14;
+    @FXML private TextField advAbilities11;
+    @FXML private TextField advAbilities12;
+    @FXML private TextField advAbilities13;
+    @FXML private TextField advAbilities14;
     @FXML private TextField[] advAbility1;
-    @FXML private TextField advAbilityField21;
-    @FXML private TextField advAbilityField22;
-    @FXML private TextField advAbilityField23;
-    @FXML private TextField advAbilityField24;
+    @FXML private TextField advAbilities21;
+    @FXML private TextField advAbilities22;
+    @FXML private TextField advAbilities23;
+    @FXML private TextField advAbilities24;
     @FXML private TextField[] advAbility2;
-    @FXML private TextField advAbilityField31;
-    @FXML private TextField advAbilityField32;
-    @FXML private TextField advAbilityField33;
-    @FXML private TextField advAbilityField34;
+    @FXML private TextField advAbilities31;
+    @FXML private TextField advAbilities32;
+    @FXML private TextField advAbilities33;
+    @FXML private TextField advAbilities34;
     @FXML private TextField[] advAbility3;
     @FXML private CheckBox advEditCoAbility1;
     @FXML private CheckBox advEditCoAbility2;
-    @FXML private TextField advCoAbilityField11;
-    @FXML private TextField advCoAbilityField12;
-    @FXML private TextField advCoAbilityField13;
-    @FXML private TextField advCoAbilityField14;
-    @FXML private TextField advCoAbilityField15;
+    @FXML private TextField advExAbilityData1;
+    @FXML private TextField advExAbilityData2;
+    @FXML private TextField advExAbilityData3;
+    @FXML private TextField advExAbilityData4;
+    @FXML private TextField advExAbilityData5;
     @FXML private TextField[] advCoAbility1;
-    @FXML private TextField advCoAbilityField21;
-    @FXML private TextField advCoAbilityField22;
-    @FXML private TextField advCoAbilityField23;
-    @FXML private TextField advCoAbilityField24;
-    @FXML private TextField advCoAbilityField25;
+    @FXML private TextField advExAbility2Data1;
+    @FXML private TextField advExAbility2Data2;
+    @FXML private TextField advExAbility2Data3;
+    @FXML private TextField advExAbility2Data4;
+    @FXML private TextField advExAbility2Data5;
     @FXML private TextField[] advCoAbility2;
     @FXML private ChoiceBox advElementBox;
     @FXML private ChoiceBox advRarityBox;
@@ -105,37 +109,37 @@ public class PrimaryController extends App{
     @FXML private CheckBox advEditChargeGroup;
     @FXML private CheckBox advEditEditSkillGroup;
     @FXML private CheckBox advEditLevelGroup;
-    @FXML private TextField advBAChargeField;
-    @FXML private TextField advChainTimeField;
-    @FXML private TextField advChargeTypeField;
-    @FXML private TextField advDefaultUnlockedField;
+    @FXML private TextField advOnChangeBADuringCharge;
+    @FXML private TextField advSkillChainValidTime;
+    @FXML private TextField advChargeType;
+    @FXML private TextField advDefaultIsUnlockEditSkill;
     @FXML private CheckBox advEditChainTime;
     @FXML private CheckBox advEditSupportSkillNum;
-    @FXML private TextField advEntityIDField;
-    @FXML private TextField advEntityQuantityField;
-    @FXML private TextField advEntityTypeField;
-    @FXML private TextField advEpithetField;
-    @FXML private TextField advHoldCostField;
-    @FXML private TextField advMaxChargeField;
-    @FXML private TextField advNameField;
-    @FXML private TextField advSecondField;
-    @FXML private TextField advFullIdField;
-    @FXML private TextField advBaseIdField;
-    @FXML private TextField advVariationField;
-    @FXML private TextField advSkillCostField;
-    @FXML private TextField advSkillIDField;
-    @FXML private TextField advSkillLevelField;
-    @FXML private TextField advSkillRelationField;
-    @FXML private TextField advSupportSkillField;
-    @FXML private TextField advUnuseDmodeSkillField;
+    @FXML private TextField advEditReleaseEntityId1;
+    @FXML private TextField advEditReleaseEntityQuantity1;
+    @FXML private TextField advEditReleaseEntityType1;
+    @FXML private TextField advEmblemId;
+    @FXML private TextField advHoldEditSkillCost;
+    @FXML private TextField advMaxChargeLv;
+    @FXML private TextField advName;
+    @FXML private TextField advSecondName;
+    @FXML private TextField advId;
+    @FXML private TextField advBaseId;
+    @FXML private TextField advVariationId;
+    @FXML private TextField advEditSkillCost;
+    @FXML private TextField advEditSkillId;
+    @FXML private TextField advEditSkillLevelNum;
+    @FXML private TextField advEditSkillRelationId;
+    @FXML private TextField advSupportSkillNum;
+    @FXML private TextField advIsUnuseDmodeEditSkill;
     @FXML private TextField[] advChargeList;
     @FXML private TextField[] advEditSkillList;
     @FXML private TextField[] advLevelList;
-    @FXML private TextField advConvertDragonField;
-    @FXML private TextField advDefaultAbility1Field;
-    @FXML private TextField advDefaultAbility2Field;
-    @FXML private TextField advDefaultAbility3Field;
-    @FXML private TextField advDefaultBAField;
+    @FXML private TextField advIsConvertDragonSkillLevel;
+    @FXML private TextField advDefaultAbility1Level;
+    @FXML private TextField advDefaultAbility2Level;
+    @FXML private TextField advDefaultAbility3Level;
+    @FXML private TextField advDefaultBurstAttackLevel;
     @FXML private ProgressBar loadChara;
     @FXML private ProgressBar loadDrag;
     @FXML private ProgressBar loadWyrm;
@@ -144,6 +148,17 @@ public class PrimaryController extends App{
     ObservableList<Integer> rarityList = FXCollections.observableArrayList(3,4,5);
     ObservableList<String> weaponList  = FXCollections.observableArrayList("Sword","Blade","Dagger","Axe","Lance","Bow","Wand","Staff","Gun");
     ObservableList<String> roleList = FXCollections.observableArrayList("Attack","Defense","Support","Healer");
+
+    @FXML private CheckBox advEditManaCircles;
+    @FXML private Button advGenCircles;
+    @FXML private TextField advManaCircleName;
+    @FXML private TextField advCharaLimitBreak;
+    @FXML private TextField advPieceElementGroupId;
+    @FXML private TextField advPieceMaterialElementId;
+    @FXML private Node[] advCircleList;
+
+    @FXML private Label advJPVA;
+    @FXML private Label advENVA;
 
     private ArrayList<Button> charaButtons = new ArrayList<>();
     private ArrayList<Button> dragonButtons = new ArrayList<>();
@@ -197,15 +212,16 @@ public class PrimaryController extends App{
         mainList = new ToggleButton[]{charButton,dragButton,wyrmButton};
         advButtonList = new ToggleButton[]{advBasicButton,advAdvancedButton,advSkillsButton,advStatsButton};
         advDetailGrids = new GridPane[]{advBasicDetailGrid,advSkillsDetailGrid1,advSkillsDetailGrid2};
-        advCheckBoxList = new CheckBox[]{advEditSkill1,advEditSkill2,advEditAbility1,advEditAbility2,advEditAbility3,advEditCoAbility1,advEditCoAbility2,advEditChainTime,advEditSupportSkillNum,advEditChargeGroup,advEditEditSkillGroup,advEditLevelGroup};
-        advAbility1 = new TextField[]{advAbilityField11,advAbilityField12,advAbilityField13,advAbilityField14};
-        advAbility2 = new TextField[]{advAbilityField21,advAbilityField22,advAbilityField23,advAbilityField24};
-        advAbility3 = new TextField[]{advAbilityField31,advAbilityField32,advAbilityField33,advAbilityField34};
-        advCoAbility1 = new TextField[]{advCoAbilityField11,advCoAbilityField12,advCoAbilityField13,advCoAbilityField14,advCoAbilityField15};
-        advCoAbility2 = new TextField[]{advCoAbilityField21,advCoAbilityField22,advCoAbilityField23,advCoAbilityField24,advCoAbilityField25};
-        advChargeList = new TextField[]{advChargeTypeField,advMaxChargeField,advBAChargeField,advDefaultBAField};
-        advEditSkillList = new TextField[]{advEntityIDField,advEntityQuantityField,advEntityTypeField,advHoldCostField,advSkillCostField,advSkillLevelField,advSkillRelationField,advDefaultUnlockedField,advSkillIDField,advUnuseDmodeSkillField};
-        advLevelList = new TextField[]{advDefaultAbility1Field,advDefaultAbility2Field,advDefaultAbility3Field,advConvertDragonField};
+        advCheckBoxList = new CheckBox[]{advEditSkill1,advEditSkill2,advEditAbility1,advEditAbility2,advEditAbility3,advEditCoAbility1,advEditCoAbility2,advEditChainTime,advEditSupportSkillNum,advEditChargeGroup,advEditEditSkillGroup,advEditLevelGroup,advEditManaCircles};
+        advAbility1 = new TextField[]{advAbilities11,advAbilities12,advAbilities13,advAbilities14};
+        advAbility2 = new TextField[]{advAbilities21,advAbilities22,advAbilities23,advAbilities24};
+        advAbility3 = new TextField[]{advAbilities31,advAbilities32,advAbilities33,advAbilities34};
+        advCoAbility1 = new TextField[]{advExAbilityData1,advExAbilityData2,advExAbilityData3,advExAbilityData4,advExAbilityData5};
+        advCoAbility2 = new TextField[]{advExAbility2Data1,advExAbility2Data2,advExAbility2Data3,advExAbility2Data4,advExAbility2Data5};
+        advChargeList = new TextField[]{advChargeType,advMaxChargeLv,advOnChangeBADuringCharge,advDefaultBurstAttackLevel};
+        advEditSkillList = new TextField[]{advEditReleaseEntityId1,advEditReleaseEntityQuantity1,advEditReleaseEntityType1,advHoldEditSkillCost,advEditSkillCost,advEditSkillLevelNum,advEditSkillRelationId,advDefaultIsUnlockEditSkill,advEditSkillId,advIsUnuseDmodeEditSkill};
+        advLevelList = new TextField[]{advDefaultAbility1Level,advDefaultAbility2Level,advDefaultAbility3Level,advIsConvertDragonSkillLevel};
+        advCircleList = new Node[]{advGenCircles, advManaCircleName, advCharaLimitBreak, advPieceElementGroupId, advPieceMaterialElementId};
 
         //Basic detail page dropdown lists
         advElementBox.setItems(elementList);
@@ -214,18 +230,19 @@ public class PrimaryController extends App{
         advRoleBox.setItems(roleList);
 
         //Block of setting actions and etc
-        advEditSkill1.setOnAction(event -> Console.toggleActive(advCheckBoxList[0], new TextField[]{advSkillField1}));
-        advEditSkill2.setOnAction(event -> Console.toggleActive(advCheckBoxList[1], new TextField[]{advSkillField2}));
+        advEditSkill1.setOnAction(event -> Console.toggleActive(advCheckBoxList[0], new TextField[]{advSkill1}));
+        advEditSkill2.setOnAction(event -> Console.toggleActive(advCheckBoxList[1], new TextField[]{advSkill2}));
         advEditAbility1.setOnAction(event -> Console.toggleActive(advCheckBoxList[2], advAbility1));
         advEditAbility2.setOnAction(event -> Console.toggleActive(advCheckBoxList[3], advAbility2));
         advEditAbility3.setOnAction(event -> Console.toggleActive(advCheckBoxList[4], advAbility3));
         advEditCoAbility1.setOnAction(event -> Console.toggleActive(advCheckBoxList[5], advCoAbility1));
         advEditCoAbility2.setOnAction(event -> Console.toggleActive(advCheckBoxList[6], advCoAbility2));
-        advEditChainTime.setOnAction(event -> Console.toggleActive(advCheckBoxList[7], new TextField[]{advChainTimeField}));
-        advEditSupportSkillNum.setOnAction(event -> Console.toggleActive(advCheckBoxList[8], new TextField[]{advSupportSkillField}));
+        advEditChainTime.setOnAction(event -> Console.toggleActive(advCheckBoxList[7], new TextField[]{advSkillChainValidTime}));
+        advEditSupportSkillNum.setOnAction(event -> Console.toggleActive(advCheckBoxList[8], new TextField[]{advSupportSkillNum}));
         advEditChargeGroup.setOnAction(event -> Console.toggleActive(advCheckBoxList[9], advChargeList));
         advEditEditSkillGroup.setOnAction(event -> Console.toggleActive(advCheckBoxList[10], advEditSkillList));
         advEditLevelGroup.setOnAction(event -> Console.toggleActive(advCheckBoxList[11], advLevelList));
+        advEditManaCircles.setOnAction(event -> Console.toggleActive(advCheckBoxList[12], advCircleList));
         advNextSkillGrid1.setOnAction(event -> Console.switchVisible(advDetailGrids, 2));
         advNextSkillGrid2.setOnAction(event -> Console.switchVisible(advDetailGrids, 1));
 
@@ -243,7 +260,67 @@ public class PrimaryController extends App{
         loadWyrm.getStylesheets().add(getClass().getResource("base.css").toExternalForm());
 
         fileCheck();
+
+        advBaseId.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            validateIntOnExit(newValue,advBaseId, 6);
+        });
+        advVariationId.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            validateIntOnExit(newValue,advVariationId, 1);
+        });
+        advId.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+            validateIntOnExit(newValue,advId, 8);
+        });
+        advRarityBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                try{advGetDataFromBox(advRarityBox,rarityList.get(new_value.intValue()));}catch(Exception e){}
+            }
+        });
+        advElementBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                advGetDataFromBox(advElementBox,elementList.get(new_value.intValue()));
+            }
+        });
+        advWeaponBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                advGetDataFromBox(advWeaponBox,weaponList.get(new_value.intValue()));
+            }
+        });
+        advRoleBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue ov, Number value, Number new_value)
+            {
+                advGetDataFromBox(advRoleBox,roleList.get(new_value.intValue()));
+            }
+        });
         
+    }
+
+    private void validateIntOnExit(boolean value, Node element, int length) {
+        if(value == false){
+            String errorMsg = "";
+            try{
+                if(((TextField)element).getText().length() != length){
+                    errorMsg += ((TextField)element).getId().toString().replace("adv","") + " must be " + length + " character(s) long!\n";
+                }
+    
+                try{
+                    int e = Integer.parseInt(changedCharacters.get(currentChar).get(((TextField)element).getId().toString().replace("adv","_")).getAsString());
+                }catch(Exception e){
+                    errorMsg += ((TextField)element).getId().toString().replace("adv","") + " can only contain numbers!";
+                }
+    
+                if(errorMsg != ""){
+                    Alert errorAlert = new Alert(AlertType.NONE, errorMsg,ButtonType.OK);
+                    Optional<ButtonType> choice2 = errorAlert.showAndWait(); 
+                    if(choice2.isPresent() && choice2.get() == ButtonType.OK){}
+                    changedCharacters.get(currentChar).addProperty(((TextField)element).getId().toString().replace("adv","_"),characterList.get(currentChar).get(((TextField)element).getId().toString().replace("adv","_")).getAsString());
+                }
+                
+                ((TextField)element).setText("");
+            }catch(Exception e1){}
+        }
     }
 
     //Switch the currently displayed list
@@ -298,38 +375,52 @@ public class PrimaryController extends App{
         for(int i = 0; i < characterList.size(); i++){
             if(characterList.get(i).get("_Id").getAsInt() == Integer.parseInt(source.getId())){
                 currentChar = i;
-                /*This is a stopgap*/Console.compareChanges(advNameField, Character.getName(characterList.get(i)), Character.getName(changedCharacters.get(i)));
-                /*This is a stopgap*/Console.compareChanges(advSecondField, Character.getSecondName(characterList.get(i)), Character.getSecondName(changedCharacters.get(i)));
-                if(Character.getSecondName(characterList.get(i)) == "Name not Found"){advSecondField.setDisable(true);}else{advSecondField.setDisable(false);}
-                Console.compareChanges(advBaseIdField, Character.getBaseId(characterList.get(i)), Character.getBaseId(changedCharacters.get(i)));
-                Console.compareChanges(advFullIdField, Character.getId(characterList.get(i)), Character.getId(changedCharacters.get(i)));
-                Console.compareChanges(advVariationField, Character.getVariationId(characterList.get(i)), Character.getVariationId(changedCharacters.get(i)));
-                /*This is a stopgap*/Console.compareChanges(advEpithetField, Character.getEpithet(characterList.get(i)), Character.getEpithet(changedCharacters.get(i)));
+                try{
+                    if(Character.getName(characterList.get(i)).equals(Character.getName(changedCharacters.get(i)))){
+                        changedCharacters.get(i).addProperty("_Name",Character.getName(characterList.get(i)));
+                    }
+                    if(Character.getSecondName(characterList.get(i)).equals(Character.getSecondName(changedCharacters.get(i)))){
+                        changedCharacters.get(i).addProperty("_SecondName",Character.getSecondName(characterList.get(i)));
+                    }
+                    if(Character.getEpithet(characterList.get(i)).equals(Character.getEpithet(changedCharacters.get(i)))){
+                        changedCharacters.get(i).addProperty("_EmblemId",Character.getEpithet(characterList.get(i)));
+                    }
+                }catch(Exception e){}
+                Console.compareChanges(advName, Character.getName(characterList.get(i)), changedCharacters.get(i).get("_Name").getAsString().replace('"',' ').strip());
+                Console.compareChanges(advSecondName, Character.getSecondName(characterList.get(i)), changedCharacters.get(i).get("_SecondName").getAsString().replace('"',' ').strip());
+                Console.compareChanges(advEmblemId, Character.getEpithet(characterList.get(i)), changedCharacters.get(i).get("_EmblemId").getAsString().replace('"',' ').strip());
+                if(Character.getSecondName(characterList.get(i)) == "Name not Found"){advSecondName.setDisable(true);}else{advSecondName.setDisable(false);}
+                Console.compareChanges(advBaseId, Character.getBaseId(characterList.get(i)), Character.getBaseId(changedCharacters.get(i)));
+                Console.compareChanges(advId, Character.getId(characterList.get(i)), Character.getId(changedCharacters.get(i)));
+                Console.compareChanges(advVariationId, Character.getVariationId(characterList.get(i)), Character.getVariationId(changedCharacters.get(i)));
                 if(Character.getRarity(characterList.get(i)) == 3){
                     rarityList = FXCollections.observableArrayList(3,4,5);
                     advRarityBox.setItems(rarityList);
-                    advRarityBox.setValue(3);
                 }else if(Character.getRarity(characterList.get(i)) == 4){
                     rarityList = FXCollections.observableArrayList(4,5);
                     advRarityBox.setItems(rarityList);
-                    advRarityBox.setValue(4);
                 }else if(Character.getRarity(characterList.get(i)) == 5){
                     rarityList = FXCollections.observableArrayList(5);
                     advRarityBox.setItems(rarityList);
-                    advRarityBox.setValue(5);
                 }
-                advElementBox.setValue(Character.getElementalType(characterList.get(i)));
-                advRoleBox.setValue(Character.getCharaType(characterList.get(i)));
-                advWeaponBox.setValue(Character.getWeaponType(characterList.get(i)));
+                Console.compareChanges(advRarityBox, Character.getRarity(characterList.get(i)), Character.getRarity(changedCharacters.get(i)));
+                Console.compareChanges(advElementBox, Character.getElementalType(characterList.get(i)), Character.getElementalType(changedCharacters.get(i)));
+                Console.compareChanges(advRoleBox, Character.getCharaType(characterList.get(i)), Character.getCharaType(changedCharacters.get(i)));
+                Console.compareChanges(advWeaponBox, Character.getWeaponType(characterList.get(i)), Character.getWeaponType(changedCharacters.get(i)));
+                advJPVA.setText(Character.getCvInfo(characterList.get(i)));
+                advENVA.setText(Character.getCvInfoEn(characterList.get(i)));
+                Console.compareChanges(advManaCircleName, Character.getManaCircleName(characterList.get(i)), Character.getManaCircleName(changedCharacters.get(i)));
+                Console.compareChanges(advCharaLimitBreak, Character.getCharaLimitBreak(characterList.get(i)), Character.getCharaLimitBreak(changedCharacters.get(i)));
+                Console.compareChanges(advPieceElementGroupId, Character.getPieceElementGroupId(characterList.get(i)), Character.getPieceElementGroupId(changedCharacters.get(i)));
+                Console.compareChanges(advPieceMaterialElementId, Character.getPieceMaterialElementId(characterList.get(i)), Character.getPieceMaterialElementId(changedCharacters.get(i)));
             }
         }
         
     }
 
-
     private void makeLists(){
         //Make the character list of buttons
-        ArrayList<Object[]> v = new ArrayList<>();
+        /* ArrayList<Object[]> v = new ArrayList<>();
         List<String> keys = characterList.get(0).entrySet()
             .stream()
             .map(i -> i.getKey())
@@ -347,7 +438,7 @@ public class PrimaryController extends App{
             temp.set(3,"y");
             v.add(temp.toArray());
         }
-        System.out.println(v.get(2)[1]);
+        System.out.println(v.get(2)[1]); */
         makeCharaList = new Task<ArrayList<Button>>() {
             @Override protected ArrayList<Button> call() throws Exception {
                 task1Done = false;
@@ -517,11 +608,11 @@ public class PrimaryController extends App{
     private void fileCheck(){
         try {
             characterList = Character.createCharacterList();
-            changedCharacters = characterList;
+            changedCharacters = Character.createCharacterList();
             dragonList = Dragon.createDragonList();
-            changedDragons = dragonList;
+            changedDragons = Dragon.createDragonList();
             talismanList = Talisman.createTalismanList();
-            changedTalismans = talismanList;
+            changedTalismans = Talisman.createTalismanList();
             if(Console.doesFileExist(requiredFiles[3]) != true){
                 throw new IOException();
             }
@@ -561,7 +652,16 @@ public class PrimaryController extends App{
 
     @FXML 
     private void revertChanges(){
-
+        try {
+            characterList = Character.createCharacterList();
+            changedCharacters = Character.createCharacterList();
+            dragonList = Dragon.createDragonList();
+            changedDragons = Dragon.createDragonList();
+            talismanList = Talisman.createTalismanList();
+            changedTalismans = Talisman.createTalismanList();
+        }catch (Exception e){
+            
+        }
     }
 
     @FXML
@@ -597,6 +697,60 @@ public class PrimaryController extends App{
             getEmpty = false;
         }else{
             rebuildButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    private void advGetDataFromField(KeyEvent event){
+        if(((TextField)event.getSource()).getText() != ""){
+            changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),((TextField)event.getSource()).getText());
+        }else{
+            changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),characterList.get(currentChar).get(((TextField)event.getSource()).getId().toString().replace("adv","_")).getAsString());
+        }
+    }
+
+    @FXML
+    private void advGetDataFromBox(ChoiceBox element, Object value){
+        switch(element.getId().toString().replace("adv","")){
+            case "RarityBox":{
+                changedCharacters.get(currentChar).addProperty("_Rarity", ((Integer)value));
+                break;
+            }
+            case "ElementBox":{
+                changedCharacters.get(currentChar).addProperty("_ElementalType", Types.getElement(value.toString()));
+                break;
+            }
+            case "WeaponBox":{
+                changedCharacters.get(currentChar).addProperty("_WeaponType", Types.getWeapon(value.toString()));
+                break;
+            }
+            case "RoleBox":{
+                changedCharacters.get(currentChar).addProperty("_CharaType", Types.getRole(value.toString()));
+                break;
+            }
+        }
+        
+    }
+
+    @FXML
+    private void genCircles(){
+        Alert confirmAlert = new Alert(AlertType.NONE, "Are you sure?\nThis will overwrite the current mana circle info,\nand generate fields based on current rarity and element",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> choice = confirmAlert.showAndWait(); 
+        if(choice.isPresent() && choice.get() == ButtonType.YES && changedCharacters.get(currentChar).get("_ElementalType").getAsInt() != 99){
+            changedCharacters.get(currentChar).addProperty("_ManaCircleName","MC_0"+changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType"));
+            changedCharacters.get(currentChar).addProperty("_PieceElementGroupId",changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType"));
+            changedCharacters.get(currentChar).addProperty("_PieceMaterialElementId",changedCharacters.get(currentChar).get("_Rarity")+"01"+changedCharacters.get(currentChar).get("_ElementalType"));
+            changedCharacters.get(currentChar).addProperty("_CharaLimitBreak",Integer.parseInt("10"+changedCharacters.get(currentChar).get("_Rarity")+"010"+changedCharacters.get(currentChar).get("_ElementalType")));
+            Console.compareChanges(advManaCircleName, Character.getManaCircleName(characterList.get(currentChar)), Character.getManaCircleName(changedCharacters.get(currentChar)));
+            Console.compareChanges(advCharaLimitBreak, Character.getCharaLimitBreak(characterList.get(currentChar)), Character.getCharaLimitBreak(changedCharacters.get(currentChar)));
+            Console.compareChanges(advPieceElementGroupId, Character.getPieceElementGroupId(characterList.get(currentChar)), Character.getPieceElementGroupId(changedCharacters.get(currentChar)));
+            Console.compareChanges(advPieceMaterialElementId, Character.getPieceMaterialElementId(characterList.get(currentChar)), Character.getPieceMaterialElementId(changedCharacters.get(currentChar)));
+        }else if(changedCharacters.get(currentChar).get("_ElementalType").getAsInt() == 99){
+            Alert errorAlert = new Alert(AlertType.NONE, "Character has a non-standard element, and thus, unable to generate info!",ButtonType.OK);
+            Optional<ButtonType> choice2 = errorAlert.showAndWait(); 
+            if(choice2.isPresent() && choice2.get() == ButtonType.OK){
+
+            }
         }
     }
 

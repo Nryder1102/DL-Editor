@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -59,7 +60,7 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dleditor.PrimaryController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar focusTraversable="false" VBox.vgrow="NEVER">
       <menus>
         <Menu fx:id="fileMenu" mnemonicParsing="false" onShown="#checkTasks" text="File">
           <items>
@@ -86,7 +87,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.185, 0.43" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.185, 0.43" focusTraversable="false" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
           <children>
@@ -134,7 +135,7 @@
                 <content>
                   <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="546.0" prefWidth="209.0">
                     <children>
-                      <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" style="&#10;" text="Contents" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                      <Label alignment="CENTER" focusTraversable="false" layoutX="14.0" layoutY="14.0" style="&#10;" text="Contents" textAlignment="CENTER" wrapText="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
                                  <font>
                             <Font size="18.0" fx:id="x1" />
                                  </font>
@@ -142,7 +143,7 @@
                             <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                                  </textFill>
                               </Label>
-                              <VBox fx:id="listBox" alignment="TOP_CENTER" fillWidth="false" layoutX="29.0" layoutY="54.0" prefHeight="492.0" prefWidth="142.0" style="-fx-background-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="54.0" />
+                              <VBox fx:id="listBox" alignment="TOP_CENTER" fillWidth="false" layoutX="29.0" layoutY="54.0" prefHeight="492.0" prefWidth="142.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="54.0" />
                     </children>
                   </AnchorPane>
                 </content>
@@ -157,7 +158,7 @@
                         <GridPane fx:id="advBasicDetailGrid" prefHeight="460.0" prefWidth="482.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.4" minWidth="10.0" prefWidth="211.8000244140625" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.800048828125" minWidth="10.0" prefWidth="212.79996337890628" />
                           </columnConstraints>
                           <rowConstraints>
@@ -257,7 +258,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Name:" />
-                                    <TextField fx:id="advNameField" alignment="CENTER" focusTraversable="false" prefWidth="150.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advName" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" prefWidth="150.0" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2">
@@ -270,7 +271,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Second Name:" />
-                                    <TextField fx:id="advSecondField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSecondName" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="1">
@@ -283,7 +284,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Epithet:" />
-                                    <TextField fx:id="advEpithetField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEmblemId" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="2">
@@ -297,8 +298,8 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Base ID:" />
-                                    <TextField fx:id="advBaseIdField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
-                                    <TextField fx:id="advVariationField" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="26.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
+                                    <TextField fx:id="advBaseId" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advVariationId" alignment="CENTER" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" onKeyReleased="#advGetDataFromField" prefHeight="26.0" prefWidth="30.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -311,7 +312,7 @@
                                 </rowConstraints>
                                  <children>
                                     <Label text="Full ID:" />
-                                    <TextField fx:id="advFullIdField" alignment="CENTER" focusTraversable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advId" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -345,24 +346,6 @@
                                     <Label fx:id="advJPVA" text="Label" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <GridPane GridPane.rowIndex="9">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
-                              <GridPane GridPane.rowIndex="11">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
                               <GridPane GridPane.rowIndex="10">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -371,6 +354,35 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Mana Circle Name:" />
+                                    <TextField fx:id="advManaCircleName" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="9">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Mana Circle Group" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="11">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.99999237060547" minWidth="10.0" prefWidth="132.99999237060547" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="PieceElementGroupID:" />
+                                    <TextField fx:id="advPieceElementGroupId" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="12">
                                 <columnConstraints>
@@ -452,15 +464,6 @@
                                     <Label fx:id="advENVA" text="Label" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="9">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                              </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="10">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -469,15 +472,38 @@
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="Limit Break ID:" />
+                                    <TextField fx:id="advCharaLimitBreak" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="11">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.5999755859375" minWidth="10.0" prefWidth="142.3999267578125" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
                                 </columnConstraints>
                                 <rowConstraints>
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PieceMaterialElementID:" />
+                                    <TextField fx:id="advPieceMaterialElementId" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="9">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="advGenCircles" disable="true" focusTraversable="false" mnemonicParsing="false" onAction="#genCircles" text="Generate Mana Circle Info?" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="11.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="13">
                                 <columnConstraints>
@@ -533,6 +559,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                               </GridPane>
+                              <CheckBox fx:id="advEditManaCircles" focusTraversable="false" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                            </children>
                         </GridPane>
                         <GridPane fx:id="advButtonGrid" layoutX="2.0" layoutY="448.0" prefHeight="58.0" prefWidth="482.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
@@ -545,7 +572,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ToggleButton fx:id="advAdvancedButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Advanced Details" GridPane.columnIndex="1">
+                              <ToggleButton fx:id="advAdvancedButton" focusTraversable="false" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Advanced Details" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -553,17 +580,17 @@
                                     <ToggleGroup fx:id="advDetailGroup" />
                                  </toggleGroup>
                               </ToggleButton>
-                              <ToggleButton fx:id="advSkillsButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Skills &amp; Abilities" toggleGroup="$advDetailGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <ToggleButton fx:id="advSkillsButton" focusTraversable="false" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Skills &amp; Abilities" toggleGroup="$advDetailGroup" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </ToggleButton>
-                              <ToggleButton fx:id="advBasicButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" selected="true" text="Basic Details" toggleGroup="$advDetailGroup">
+                              <ToggleButton fx:id="advBasicButton" focusTraversable="false" mnemonicParsing="false" onAction="#switchAdvDetailPane" selected="true" text="Basic Details" toggleGroup="$advDetailGroup">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
                               </ToggleButton>
-                              <ToggleButton fx:id="advStatsButton" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Stats" toggleGroup="$advDetailGroup" GridPane.rowIndex="1">
+                              <ToggleButton fx:id="advStatsButton" focusTraversable="false" mnemonicParsing="false" onAction="#switchAdvDetailPane" text="Stats" toggleGroup="$advDetailGroup" GridPane.rowIndex="1">
                                  <font>
                                     <Font size="10.0" />
                                  </font>
@@ -605,7 +632,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField13" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities13" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="5">
@@ -618,7 +645,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Ability 2" />
-                                    <TextField fx:id="advAbilityField21" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities21" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="4">
@@ -630,7 +657,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField14" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities14" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
@@ -642,7 +669,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField13" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData3" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="9">
@@ -654,7 +681,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField31" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities31" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Ability 3:" />
                                  </children>
                               </GridPane>
@@ -667,7 +694,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField22" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data2" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane>
@@ -680,7 +707,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Skill 1:" />
-                                    <TextField fx:id="advSkillField1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSkill1" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2">
@@ -693,7 +720,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Skill 2:" />
-                                    <TextField fx:id="advSkillField2" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSkill2" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="1">
@@ -706,7 +733,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Ability 1:" />
-                                    <TextField fx:id="advAbilityField11" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities11" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="2">
@@ -718,7 +745,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField12" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities12" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -731,7 +758,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Support Skill #:" />
-                                    <TextField fx:id="advSupportSkillField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSupportSkillNum" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -743,7 +770,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advChainTimeField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSkillChainValidTime" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Valid Chain Time:" />
                                  </children>
                               </GridPane>
@@ -756,7 +783,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField23" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities23" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="8">
@@ -768,7 +795,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField24" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities24" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="10">
@@ -780,7 +807,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField32" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities32" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="12">
@@ -792,7 +819,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField34" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities34" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="11">
@@ -804,7 +831,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField33" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities33" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="13">
@@ -835,7 +862,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Co-Ability 1:" />
-                                    <TextField fx:id="advCoAbilityField11" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData1" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
@@ -847,7 +874,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField12" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData2" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
@@ -859,7 +886,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField15" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData5" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="8">
@@ -871,7 +898,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField21" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data1" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Co-Ability 2:" />
                                  </children>
                               </GridPane>
@@ -884,7 +911,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField23" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data3" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="11">
@@ -896,7 +923,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField24" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data4" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="12">
@@ -908,7 +935,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField25" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data5" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="14">
@@ -945,7 +972,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilityField22" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities22" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -957,7 +984,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advCoAbilityField14" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData4" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <CheckBox fx:id="advEditCoAbility2" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="8" />
@@ -1005,7 +1032,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advHoldCostField" disable="true" prefWidth="85.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advHoldEditSkillCost" disable="true" prefWidth="85.0" GridPane.columnIndex="1" />
                                     <Label text="Hold Edit Skill Cost:" />
                                  </children>
                               </GridPane>
@@ -1018,7 +1045,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advSkillCostField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillCost" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill Cost:" />
                                  </children>
                               </GridPane>
@@ -1031,7 +1058,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advSkillIDField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillId" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill ID:" />
                                  </children>
                               </GridPane>
@@ -1044,7 +1071,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advSkillRelationField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillRelationId" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill Relation ID:" />
                                  </children>
                               </GridPane>
@@ -1057,7 +1084,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advDefaultUnlockedField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultIsUnlockEditSkill" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Default Is Unlocked Edit Skill:" />
                                  </children>
                               </GridPane>
@@ -1092,7 +1119,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Charge Type:" />
-                                    <TextField fx:id="advChargeTypeField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advChargeType" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -1105,7 +1132,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Burst Attack Level:" />
-                                    <TextField fx:id="advDefaultBAField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultBurstAttackLevel" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -1118,7 +1145,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Max Charge Level:" />
-                                    <TextField fx:id="advMaxChargeField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advMaxChargeLv" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="9">
@@ -1130,7 +1157,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEntityQuantityField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditReleaseEntityQuantity1" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Release Entity Quantity:" />
                                  </children>
                               </GridPane>
@@ -1153,7 +1180,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Ability 1 Level:" />
-                                    <TextField fx:id="advDefaultAbility1Field" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultAbility1Level" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="11">
@@ -1178,7 +1205,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Ability Level 3:" />
-                                    <TextField fx:id="advDefaultAbility3Field" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultAbility3Level" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="15">
@@ -1207,7 +1234,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Is Unuse Dmode Edit Skill:" />
-                                    <TextField fx:id="advUnuseDmodeSkillField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advIsUnuseDmodeEditSkill" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -1219,7 +1246,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advSkillLevelField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillLevelNum" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill Level #:" />
                                  </children>
                               </GridPane>
@@ -1251,7 +1278,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Ability 2 Level:" />
-                                    <TextField fx:id="advDefaultAbility2Field" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultAbility2Level" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="15">
@@ -1273,7 +1300,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Convert Dragon Skill Level:" />
-                                    <TextField fx:id="advConvertDragonField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advIsConvertDragonSkillLevel" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <CheckBox fx:id="advEditChargeGroup" mnemonicParsing="false" GridPane.columnIndex="3" />
@@ -1286,7 +1313,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEntityTypeField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditReleaseEntityType1" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Release Entity Type 1:" />
                                  </children>
                               </GridPane>
@@ -1299,7 +1326,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEntityIDField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditReleaseEntityId1" disable="true" GridPane.columnIndex="1" />
                                     <Label text="Edit Release Entity ID 1:" />
                                  </children>
                               </GridPane>
@@ -1314,7 +1341,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Change BA During Charge:" />
-                                    <TextField fx:id="advBAChargeField" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advOnChangeBADuringCharge" disable="true" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <Label text="Edit Skill Group:" GridPane.rowIndex="4" />
@@ -1343,4 +1370,8 @@
       </padding>
     </HBox>
   </children>
+   <stylesheets>
+      <URL value="@base.css" />
+      <URL value="@dark.css" />
+   </stylesheets>
 </VBox>

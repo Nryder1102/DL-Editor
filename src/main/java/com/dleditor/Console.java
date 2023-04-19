@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import javafx.beans.Observable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
@@ -643,6 +644,14 @@ public abstract class Console {
         }
     }
 
+    /**
+     * Compares between two objects, and sets the value of the JavaFX object to the result, showing the changes if one is found
+     * TextField: Sets the prompt text to the base value, and if there's a change detected, sets the text to the changed value, otherwise, set the text to null
+     * ChoiceBox: Sets the current value to either the base or the changed value
+     * @param element  Node object to base the comparison on
+     * @param base  The base value
+     * @param changed  Value to check if it's been changed from the base
+     */
     public static void compareChanges(Node element, Object base, Object changed){
         try{
             ((TextField) element).setPromptText(""+base);
@@ -652,7 +661,15 @@ public abstract class Console {
                 ((TextField) element).setText(""+changed);
             }
         }catch(Exception e){
-
+            try{
+                if(base.equals(changed)){
+                    ((ChoiceBox) element).setValue(base);
+                }else{
+                    ((ChoiceBox) element).setValue(changed);
+                }
+            }catch(Exception e1){
+    
+            }
         }
         
     }

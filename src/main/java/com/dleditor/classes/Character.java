@@ -348,7 +348,7 @@ public class Character{
     public static void setMinDef(JsonObject element, int minDef) {
         this.minDef = minDef;
     }
-    public double getDefCoef(JsonObject element) {
+    public static double getDefCoef(JsonObject element) {
         return element.get() defCoef;
     }
     public static void setDefCoef(double defCoef) {
@@ -408,13 +408,13 @@ public class Character{
     public static void setMode2Combo(JsonObject element, int mode2Combo) {
         this.mode2Combo = mode2Combo;
     }
-    public double getSearchRange(JsonObject element) {
+    public static double getSearchRange(JsonObject element) {
         return element.get() searchRange;
     }
     public static void setSearchRange(double searchRange) {
         this.searchRange = searchRange;
     }
-    public double getSearchAngle(JsonObject element) {
+    public static double getSearchAngle(JsonObject element) {
         return element.get() searchAngle;
     }
     public static void setSearchAngle(double searchAngle) {
@@ -486,7 +486,7 @@ public class Character{
     public static void setWin(JsonObject element, int win) {
         this.win = win;
     }
-    public String getEffNameCriticalHit(JsonObject element) {
+    public static String getEffNameCriticalHit(JsonObject element) {
         return element.get() effNameCriticalHit;
     }
     public static void setEffNameCriticalHit(String effNameCriticalHit) {
@@ -504,7 +504,7 @@ public class Character{
     public static void setSkill2(JsonObject element, int skill2) {
         this.skill2 = skill2;
     }
-    public double getSkillChainValidTime(JsonObject element) {
+    public static double getSkillChainValidTime(JsonObject element) {
         return element.get() skillChainValidTime;
     }
     public static void setSkillChainValidTime(double skillChainValidTime) {
@@ -725,31 +725,31 @@ public class Character{
     }
     public static void setIsUnuseDmodeEditSkill(JsonObject element, int isUnuseDmodeEditSkill) {
         this.isUnuseDmodeEditSkill = isUnuseDmodeEditSkill;
+    }*/
+    public static String getManaCircleName(JsonObject element) {
+        return element.get("_ManaCircleName").getAsString();
     }
-    public String getManaCircleName(JsonObject element) {
-        return element.get() manaCircleName;
-    }
-    public static void setManaCircleName(String manaCircleName) {
-        this.manaCircleName = manaCircleName;
+    public static void setManaCircleName(JsonObject element, String manaCircleName) {
+        element.addProperty("_ManaCircleName", manaCircleName);
     }
     public static int getCharaLimitBreak(JsonObject element) {
-        return element.get() charaLimitBreak;
+        return element.get("_CharaLimitBreak").getAsInt();
     }
     public static void setCharaLimitBreak(JsonObject element, int charaLimitBreak) {
-        this.charaLimitBreak = charaLimitBreak;
+        element.addProperty("_CharaLimitBreak", charaLimitBreak);
     }
     public static int getPieceElementGroupId(JsonObject element) {
-        return element.get() pieceElementGroupId;
+        return element.get("_PieceElementGroupId").getAsInt();
     }
     public static void setPieceElementGroupId(JsonObject element, int pieceElementGroupId) {
-        this.pieceElementGroupId = pieceElementGroupId;
+        element.addProperty("_PieceElementGroupId", pieceElementGroupId);
     }
     public static int getPieceMaterialElementId(JsonObject element) {
-        return element.get() pieceMaterialElementId;
+        return element.get("_PieceMaterialElementId").getAsInt();
     }
     public static void setPieceMaterialElementId(JsonObject element, int pieceMaterialElementId) {
-        this.pieceMaterialElementId = pieceMaterialElementId;
-    }
+        element.addProperty("_PieceMaterialElementId", pieceMaterialElementId);
+    }/*
     public static int getAwakeNeedEntityType4(JsonObject element) {
         return element.get() awakeNeedEntityType4;
     }
@@ -785,26 +785,49 @@ public class Character{
     }
     public static void setAwakeNeedEntityQuantity5(JsonObject element, int awakeNeedEntityQuantity5) {
         this.awakeNeedEntityQuantity5 = awakeNeedEntityQuantity5;
+    }*/
+    public static String getCvInfo(JsonObject element) {
+        String cvInfo = element.get("_CvInfo").getAsString();
+        try{
+            return Console.grabText(textFile, cvInfo, 1).split(": ")[1].replace('"',' ').strip();
+        }catch(Exception e){
+            return "Name not Found";
+        }
     }
-    public String getCvInfo(JsonObject element) {
-        return element.get() cvInfo;
+    //public static void setCvInfo(JsonObject element, String cvInfo) {
+    //    this.cvInfo = cvInfo;
+    //}
+    public static String getCvInfoEn(JsonObject element) {
+        String cvInfoEn = element.get("_CvInfoEn").getAsString();
+        try{
+            return Console.grabText(textFile, cvInfoEn, 1).split(": ")[1].replace('"',' ').strip();
+        }catch(Exception e){
+            return "Name not Found";
+        }
     }
-    public static void setCvInfo(String cvInfo) {
-        this.cvInfo = cvInfo;
+    //public static void setCvInfoEn(JsonObject element, String cvInfoEn) {
+    //    this.cvInfoEn = cvInfoEn;
+    //}
+    public static String getCvInfoID(JsonObject element) {
+        return element.get("_CvInfo").getAsString();
     }
-    public String getCvInfoEn(JsonObject element) {
-        return element.get() cvInfoEn;
+    public static void setCvInfoID(JsonObject element, String cvInfo) {
+        element.addProperty("_CvInfo", cvInfo);
     }
-    public static void setCvInfoEn(String cvInfoEn) {
-        this.cvInfoEn = cvInfoEn;
+    public static String getCvInfoEnID(JsonObject element) {
+        return element.get("_CvInfoEn").getAsString();
     }
-    public String getProfileText(JsonObject element) {
+    public static void setCvInfoEnID(JsonObject element, String cvInfoEn) {
+        element.addProperty("_CvInfoEn", cvInfoEn);
+    }
+    /*
+    public static String getProfileText(JsonObject element) {
         return element.get() profileText;
     }
     public static void setProfileText(String profileText) {
         this.profileText = profileText;
     }
-    public String getReleaseStartDate(JsonObject element) {
+    public static String getReleaseStartDate(JsonObject element) {
         return element.get() releaseStartDate;
     }
     public static void setReleaseStartDate(String releaseStartDate) {
@@ -852,7 +875,7 @@ public class Character{
     public static void setSpecialOndamageVoice(JsonObject element, int specialOndamageVoice) {
         this.specialOndamageVoice = specialOndamageVoice;
     }
-    public double getBaseScale(JsonObject element) {
+    public static double getBaseScale(JsonObject element) {
         return element.get() baseScale;
     }
     public static void setBaseScale(double baseScale) {
@@ -960,13 +983,13 @@ public class Character{
     public static void setMaxFriendshipPoint(JsonObject element, int maxFriendshipPoint) {
         this.maxFriendshipPoint = maxFriendshipPoint;
     }
-    public String getGrowMaterialOnlyStartDate(JsonObject element) {
+    public static String getGrowMaterialOnlyStartDate(JsonObject element) {
         return element.get() growMaterialOnlyStartDate;
     }
     public static void setGrowMaterialOnlyStartDate(String growMaterialOnlyStartDate) {
         this.growMaterialOnlyStartDate = growMaterialOnlyStartDate;
     }
-    public String getGrowMaterialOnlyEndDate(JsonObject element) {
+    public static String getGrowMaterialOnlyEndDate(JsonObject element) {
         return element.get() growMaterialOnlyEndDate;
     }
     public static void setGrowMaterialOnlyEndDate(String growMaterialOnlyEndDate) {
