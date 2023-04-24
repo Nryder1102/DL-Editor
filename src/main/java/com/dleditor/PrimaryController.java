@@ -488,7 +488,7 @@ public class PrimaryController extends App{
 
     @FXML
     private void genCircles(){
-        Alert confirmAlert = createAlert(AlertType.CONFIRMATION,"Generate Mana Circles","Are you sure?","This will overwrite the current mana circle info, and generate new fields based on current selected rarity and element",ButtonType.YES,ButtonType.NO);
+        Alert confirmAlert = createAlert(AlertType.CONFIRMATION,"Generate Mana Circles","Are you sure?","This will overwrite the current mana circle info,\nand generate new fields based on current selected rarity and element",ButtonType.YES,ButtonType.NO);
         Optional<ButtonType> choice = confirmAlert.showAndWait(); 
         if(choice.isPresent() && choice.get() == ButtonType.YES && changedCharacters.get(currentChar).get("_ElementalType").getAsInt() != 99){
             changedCharacters.get(currentChar).addProperty("_ManaCircleName","MC_0"+changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType"));
@@ -500,7 +500,7 @@ public class PrimaryController extends App{
             Console.compareChanges(advPieceElementGroupId, Character.getPieceElementGroupId(characterList.get(currentChar)), Character.getPieceElementGroupId(changedCharacters.get(currentChar)));
             Console.compareChanges(advPieceMaterialElementId, Character.getPieceMaterialElementId(characterList.get(currentChar)), Character.getPieceMaterialElementId(changedCharacters.get(currentChar)));
         }else if(changedCharacters.get(currentChar).get("_ElementalType").getAsInt() == 99){
-            Alert errorAlert = new Alert(AlertType.NONE, "Character has a non-standard element, and thus, unable to generate info!",ButtonType.OK);
+            Alert errorAlert = new Alert(AlertType.NONE, "Character has a non-standard element,\nand thus, unable to generate info!",ButtonType.OK);
             Optional<ButtonType> choice2 = errorAlert.showAndWait(); 
             if(choice2.isPresent() && choice2.get() == ButtonType.OK){
 
@@ -894,7 +894,7 @@ public class PrimaryController extends App{
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource(theme).toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("themes/"+theme).toExternalForm());
         return alert;
     }
 
@@ -917,7 +917,7 @@ public class PrimaryController extends App{
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource(theme).toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("themes/"+theme).toExternalForm());
         return alert;
     }
     
