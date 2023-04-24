@@ -7,15 +7,25 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
 
 import javafx.beans.Observable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Labeled;
@@ -584,7 +594,6 @@ public abstract class Console {
         }
     }
 
-
     public static void switchToggle(ToggleButton[] buttonList){
         for(ToggleButton toggle : buttonList){
             if(toggle.isSelected()){
@@ -608,7 +617,7 @@ public abstract class Console {
         return output;
     }
 
-    public static void switchVisible(Object[] objectList, int index){
+    public static void switchVisible(Node[] objectList, int index){
         for(int i = 0; i < objectList.length; i++){
             if(i == index){
                 ((Node) objectList[i]).setVisible(true);
@@ -673,4 +682,61 @@ public abstract class Console {
         }
         
     }
+
+    public static ArrayList<Node> getAllNodes(Parent root) {
+        ArrayList<Node> nodes = new ArrayList<Node>();
+        addAllDescendents(root, nodes);
+        return nodes;
+    }
+    
+    private static void addAllDescendents(Parent parent, ArrayList<Node> nodes) {
+        for (Node node : parent.getChildrenUnmodifiable()) {
+            nodes.add(node);
+            if (node instanceof Parent)
+                addAllDescendents((Parent)node, nodes);
+        }
+    }
+
+    /**
+     * Opens and shows the location of the folder in the file explorer
+     * @param folderPath
+     */
+    public static void openFolder(String folderPath){
+        try {
+			Runtime.getRuntime().exec("explorer.exe /select," + folderPath);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+
+    public static JsonObject getAsJsonObject(String fileName) throws FileNotFoundException{
+        Gson gson = new Gson();
+        //Get full file as a jsonreader
+        JsonReader reader = new JsonReader(new FileReader(fileName));
+        //Turn the file into a json object
+        JsonObject data = gson.fromJson(reader, JsonObject.class);
+        //Return
+        return data;
+    }
+
+    public static void writeAsJson(Object object,String fileName) throws JsonIOException, IOException{
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        FileWriter writer = new FileWriter(fileName);
+        JsonElement tree = gson.toJsonTree(object);
+        gson.toJson(tree, writer);
+        writer.flush(); 
+        writer.close();
+    }
+
+
+    public static Object[] getFolderContents(String folderPath) throws IOException {
+        //Creating a File object for directory
+        File directoryPath = new File(folderPath);
+        //List of all files and directories
+        String[] contents = directoryPath.list();
+
+        return contents;
+        
+     }
 }

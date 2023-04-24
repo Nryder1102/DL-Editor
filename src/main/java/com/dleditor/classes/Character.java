@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.dleditor.Console;
 import com.dleditor.classes.Types.Element;
