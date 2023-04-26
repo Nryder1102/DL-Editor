@@ -1,4 +1,10 @@
 {
   "theme": "dark.css",
-  "loadEmptyByDefault": false
+  "loadEmptyByDefault": false,
+  "saveLocation" : {
+    "characters" : "CharaData.json",
+    "dragons" : "DragonData.json",
+    "wyrmprints" : "TalismanData.json",
+    "text" : "TextLabel.json"
+  }
 }

@@ -34,4 +34,12 @@ public class Text {
     
         return textList;
     }
+
+    public static void setText(JsonObject element, String string){
+        element.addProperty("_Text", string);
+    }
+    
+    public static void setText(JsonObject element, JsonElement string){
+        element.addProperty("_Text", string.getAsString());
+    }
 }

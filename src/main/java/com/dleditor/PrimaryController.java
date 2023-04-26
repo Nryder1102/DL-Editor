@@ -3,12 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import com.dleditor.classes.Character;
 import com.dleditor.classes.Dragon;
@@ -18,10 +14,8 @@ import com.dleditor.classes.Types;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
 import javafx.application.Platform;
@@ -34,35 +28,28 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Control;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
-import javafx.stage.WindowEvent;
 
 public class PrimaryController extends App{
 
@@ -200,6 +187,8 @@ public class PrimaryController extends App{
     private Task<Void> makeDragonList;
     private Task<Void> makeWyrmList;
 
+    private Task<Void> saveTask;
+
     private static final String RED_BAR    = "red-bar";
     private static final String YELLOW_BAR = "yellow-bar";
     private static final String ORANGE_BAR = "orange-bar";
@@ -228,6 +217,8 @@ public class PrimaryController extends App{
     @FXML private AnchorPane[] detailsList;
 
     @FXML private MenuItem rebuildButton;
+    @FXML private MenuItem saveAsButton;
+    @FXML private MenuItem saveButton;
 
     @FXML private Node[][] defaultDisabled;
 
@@ -238,6 +229,11 @@ public class PrimaryController extends App{
 
     protected JsonObject settings;
 
+    @FXML private HBox statusBox;
+    @FXML private Label changesLabel;
+
+    @FXML private GridPane advStatsGrid;
+
     
     //Basic Controls
     //Ughhhhhhhh 
@@ -247,7 +243,6 @@ public class PrimaryController extends App{
     private void initialize(){
         //Get settings
         try {
-            
             settings = Console.getAsJsonObject("src\\main\\resources\\com\\dleditor\\settings.json");
             theme = settings.get("theme").getAsString();
             getEmpty = settings.get("loadEmptyByDefault").getAsBoolean();
@@ -327,6 +322,13 @@ public class PrimaryController extends App{
             advId.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                 validateIntOnExit(newValue,advId, 8);
             });
+            for(Node node : Console.getAllNodes(advDetailPane)){
+                if(node.getId() != null && node.getId() != advBaseId.getId() && node.getId() != advVariationId.getId() && node.getId() != advId.getId() && node instanceof TextField){
+                    node.focusedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                        //advGetDataFromField(null);
+                    });
+                }
+            }
             advRarityBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
                 public void changed(ObservableValue ov, Number value, Number new_value)
                 {
@@ -351,7 +353,7 @@ public class PrimaryController extends App{
                     advGetDataFromBox(advRoleBox,roleList.get(new_value.intValue()));
                 }
             });
-    
+
         }catch(Exception e){}
     }
 
@@ -398,7 +400,7 @@ public class PrimaryController extends App{
         }
     }
 
-    //Put the current adventurer's details into the boxes
+    //Switch what adventurer is being displayed
     @FXML
     private void switchAdvDetails(Button source){
 
@@ -406,11 +408,15 @@ public class PrimaryController extends App{
             if(characterList.get(i).get("_Id").getAsInt() == Integer.parseInt(source.getId())){
                 currentChar = i;
                 displayCharacterDetails(i);
+                advBasicButton.setSelected(true);
+                Console.switchToggle(advButtonList);
+                Console.switchVisible(advDetailGrids, 0);
             }
         }
         
     }
 
+    //Display the chosen character's details in all the different boxes and fields
     private void displayCharacterDetails(int i){
         try{
             if(Character.getName(characterList.get(i)).equals(Character.getName(changedCharacters.get(i)))){
@@ -430,6 +436,8 @@ public class PrimaryController extends App{
         Console.compareChanges(advBaseId, Character.getBaseId(characterList.get(i)), Character.getBaseId(changedCharacters.get(i)));
         Console.compareChanges(advId, Character.getId(characterList.get(i)), Character.getId(changedCharacters.get(i)));
         Console.compareChanges(advVariationId, Character.getVariationId(characterList.get(i)), Character.getVariationId(changedCharacters.get(i)));
+        //See if I can re-implement this later, to add back-tracking for characters that had their base rarity changed
+        //This block exists so you can't accidentally set a character to a rarity that doesn't exist in the files, example: A 5* character literally doesn't have bundles containing assets for lower rarities, so setting a 5* to a lower rarity could mess things up
         /*
         if(Character.getRarity(characterList.get(i)) == 3){
             rarityList = FXCollections.observableArrayList(3,4,5);
@@ -453,17 +461,49 @@ public class PrimaryController extends App{
         Console.compareChanges(advCharaLimitBreak, Character.getCharaLimitBreak(characterList.get(i)), Character.getCharaLimitBreak(changedCharacters.get(i)));
         Console.compareChanges(advPieceElementGroupId, Character.getPieceElementGroupId(characterList.get(i)), Character.getPieceElementGroupId(changedCharacters.get(i)));
         Console.compareChanges(advPieceMaterialElementId, Character.getPieceMaterialElementId(characterList.get(i)), Character.getPieceMaterialElementId(changedCharacters.get(i)));
-    }
-
-    @FXML
-    private void advGetDataFromField(KeyEvent event){
-        if(((TextField)event.getSource()).getText() != ""){
-            changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),((TextField)event.getSource()).getText());
-        }else{
-            changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),characterList.get(currentChar).get(((TextField)event.getSource()).getId().toString().replace("adv","_")).getAsString());
+        for(Node node : Console.getAllNodes(advSkillsDetailGrid1)){
+            if(node.getId() != null){
+                try{
+                    Console.compareChanges(node,Console.parseNumber(characterList.get(i).get(node.getId().toString().replace("adv","_")).getAsString()), Console.parseNumber(changedCharacters.get(i).get(node.getId().toString().replace("adv","_")).getAsString()));
+                }catch(Exception e){}
+            }
+        }
+        for(Node node : Console.getAllNodes(advSkillsDetailGrid2)){
+            if(node.getId() != null){
+                try{
+                Console.compareChanges(node, characterList.get(i).get(node.getId().replace("adv","_").toString()).getAsNumber(), changedCharacters.get(i).get(node.getId().replace("adv","_").toString()).getAsNumber());
+                }catch(Exception e){}
+            }
+        }
+        for(Node node : Console.getAllNodes(advStatsGrid)){
+            if(node.getId() != null){
+                try{
+                Console.compareChanges(node, characterList.get(i).get(node.getId().replace("adv","_").toString()).getAsNumber(), changedCharacters.get(i).get(node.getId().replace("adv","_").toString()).getAsNumber());
+                }catch(Exception e){}
+            }
         }
     }
 
+    //Get the data in a textfield on key released and save it to the relevant key in changedCharacters
+    @FXML
+    private void advGetDataFromField(KeyEvent event){
+        if(((TextField)event.getSource()).getText() != ""){
+            try{
+            changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),Console.parseNumber(((TextField)event.getSource()).getText()));
+            }catch (Exception e){
+                changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),((TextField)event.getSource()).getText());
+            }
+        }else{
+            try{
+                changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),Console.parseNumber(characterList.get(currentChar).get(((TextField)event.getSource()).getId().toString().replace("adv","_")).getAsString()));
+            }catch (Exception e){
+                changedCharacters.get(currentChar).addProperty(((TextField)event.getSource()).getId().toString().replace("adv","_"),characterList.get(currentChar).get(((TextField)event.getSource()).getId().toString().replace("adv","_")).getAsString());
+            }
+            
+        }
+    }
+
+    //Same thing as GetDataFromField, but for ChoiceBoxes
     private void advGetDataFromBox(ChoiceBox element, Object value){
         switch(element.getId().toString().replace("adv","")){
             case "RarityBox":{
@@ -486,15 +526,16 @@ public class PrimaryController extends App{
         
     }
 
+    //Generate mana circle info, using the standardized entries in the mana circle files based off of the current rarity and element of a character
     @FXML
     private void genCircles(){
         Alert confirmAlert = createAlert(AlertType.CONFIRMATION,"Generate Mana Circles","Are you sure?","This will overwrite the current mana circle info,\nand generate new fields based on current selected rarity and element",ButtonType.YES,ButtonType.NO);
         Optional<ButtonType> choice = confirmAlert.showAndWait(); 
         if(choice.isPresent() && choice.get() == ButtonType.YES && changedCharacters.get(currentChar).get("_ElementalType").getAsInt() != 99){
-            changedCharacters.get(currentChar).addProperty("_ManaCircleName","MC_0"+changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType"));
-            changedCharacters.get(currentChar).addProperty("_PieceElementGroupId",changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType"));
-            changedCharacters.get(currentChar).addProperty("_PieceMaterialElementId",changedCharacters.get(currentChar).get("_Rarity")+"01"+changedCharacters.get(currentChar).get("_ElementalType"));
-            changedCharacters.get(currentChar).addProperty("_CharaLimitBreak",Integer.parseInt("10"+changedCharacters.get(currentChar).get("_Rarity")+"010"+changedCharacters.get(currentChar).get("_ElementalType")));
+            Character.setManaCircleName(changedCharacters.get(currentChar),"MC_0"+changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType"));
+            Character.setPieceElementGroupId(changedCharacters.get(currentChar), Integer.parseInt(changedCharacters.get(currentChar).get("_Rarity")+"0"+changedCharacters.get(currentChar).get("_ElementalType")));
+            Character.setPieceMaterialElementId(changedCharacters.get(currentChar), Integer.parseInt(changedCharacters.get(currentChar).get("_Rarity")+"01"+changedCharacters.get(currentChar).get("_ElementalType")));
+            Character.setCharaLimitBreak(changedCharacters.get(currentChar), Integer.parseInt("10"+changedCharacters.get(currentChar).get("_Rarity")+"010"+changedCharacters.get(currentChar).get("_ElementalType")));
             Console.compareChanges(advManaCircleName, Character.getManaCircleName(characterList.get(currentChar)), Character.getManaCircleName(changedCharacters.get(currentChar)));
             Console.compareChanges(advCharaLimitBreak, Character.getCharaLimitBreak(characterList.get(currentChar)), Character.getCharaLimitBreak(changedCharacters.get(currentChar)));
             Console.compareChanges(advPieceElementGroupId, Character.getPieceElementGroupId(characterList.get(currentChar)), Character.getPieceElementGroupId(changedCharacters.get(currentChar)));
@@ -517,6 +558,7 @@ public class PrimaryController extends App{
 
     //Make the lists of buttons that get swapped on type of list change
     private void makeLists(){
+        tasksDone = false;
         //Make the character list of buttons
         makeCharaList = new Task<ArrayList<Button>>() {
             @Override protected ArrayList<Button> call() throws Exception {
@@ -545,7 +587,7 @@ public class PrimaryController extends App{
                     updateProgress(i+1, listSize);
                     updateMessage(i+1 + "/" + listSize);
                 }
-                return charaButtons;
+                return null;
             }
             
         };
@@ -676,6 +718,7 @@ public class PrimaryController extends App{
         bar.getStyleClass().add(barStyleClass);
     } 
 
+    //Checks to see if you've got all the required files in the files folder
     private void fileCheck(){
         try {
             characterList = Character.createCharacterList();
@@ -715,49 +758,102 @@ public class PrimaryController extends App{
         }
     }
 
+    //Saves the current changed arrays to the relevant files
     @FXML
     private void saveChanges() throws JsonIOException, IOException{
-        for(int i = 0; i < changedCharacters.size(); i++){
-            if(changedCharacters.get(i).get("_Name").getAsString().equals(Character.getNameId(characterList.get(i)))){
-            }else{
-                boolean temp1 = false;
-                boolean temp2 = false;
-                boolean temp3 = false;
-                for(JsonObject element : changedText){
-                    if(element.get("_Id").getAsString().equals(Character.getNameId(characterList.get(i)))){
-                        element.addProperty("_Text",changedCharacters.get(i).get("_Name").getAsString());
-                        temp1 = true;
-                    }
-                    if(element.get("_Id").getAsString().equals(Character.getSecondNameId(characterList.get(i)))){
-                        element.addProperty("_Text",changedCharacters.get(i).get("_SecondName").getAsString());
-                        temp2 = true;
-                    }
-                    if(element.get("_Id").getAsString().equals("EMBLEM_NAME_"+Character.getEmblemId(characterList.get(i)))){
-                        element.addProperty("_Text",changedCharacters.get(i).get("_EmblemId").getAsString());
-                        temp3 = true;
-                    }
-                    if(temp1 && temp2 && temp3){
-                        break;
+
+        ProgressIndicator saveProgress = new ProgressIndicator();
+
+        saveProgress.setPrefHeight(14);
+        saveProgress.setPrefWidth(14);
+
+        statusBox.getChildren().add(saveProgress);
+
+        saveTask = new Task<Void>() {
+            @Override protected Void call() throws Exception {
+                //Loop to set all the character names back to the ids, so we don't save "Kevin" over "CHARA_NAME_WHATEVER"
+                for(int i = 0; i < changedCharacters.size(); i++){
+                    if(changedCharacters.get(i).get("_Name").getAsString().equals(Character.getNameId(characterList.get(i)))){
+                    }else{
+                        boolean temp1 = false;
+                        boolean temp2 = false;
+                        boolean temp3 = false;
+                        //Sets the text in the textfile to the changed text
+                        for(JsonObject element : changedText){
+                            if(element.get("_Id").getAsString().equals(Character.getNameId(characterList.get(i)))){
+                                Text.setText(element, changedCharacters.get(i).get("_Name"));
+                                temp1 = true;
+                            }
+                            if(element.get("_Id").getAsString().equals(Character.getSecondNameId(characterList.get(i)))){
+                                Text.setText(element, changedCharacters.get(i).get("_SecondName"));
+                                temp2 = true;
+                            }
+                            if(element.get("_Id").getAsString().equals("EMBLEM_NAME_"+Character.getEmblemId(characterList.get(i)))){
+                                Text.setText(element, changedCharacters.get(i).get("_EmblemId"));
+                                temp3 = true;
+                            }
+                            if(temp1 && temp2 && temp3){
+                                break;
+                            }
+                        }
+                        //Puts the IDs for the location of text back into the array
+                        Character.setNameId(changedCharacters.get(i),Character.getNameId(characterList.get(i)));
+                    
+                        Character.setSecondNameId(changedCharacters.get(i),Character.getSecondNameId(characterList.get(i)));
+            
+                        Character.setEmblemId(changedCharacters.get(i),Character.getEmblemId(characterList.get(i)));
                     }
                 }
-                changedCharacters.get(i).addProperty("_Name",Character.getNameId(characterList.get(i)));
-            
-                changedCharacters.get(i).addProperty("_SecondName",Character.getSecondNameId(characterList.get(i)));
-    
-                changedCharacters.get(i).addProperty("_EmblemId",Character.getEmblemId(characterList.get(i)));
+                
+                //Rebuild and write the Json files
+                writeArrayToFile("src/main/resources/com/dleditor/files/TalismanData.json", changedTalismans);
+                writeArrayToFile("src/main/resources/com/dleditor/files/DragonData.json", changedDragons);
+                writeArrayToFile("src/main/resources/com/dleditor/files/CharaData.json", changedCharacters);
+                writeArrayToFile("src/main/resources/com/dleditor/files/TextLabel.json", changedText);
+                
+                //Rebuild the base lists from the new files
+                try {
+                    characterList = Character.createCharacterList();
+                    changedCharacters = Character.createCharacterList();
+                    dragonList = Dragon.createDragonList();
+                    changedDragons = Dragon.createDragonList();
+                    talismanList = Talisman.createTalismanList();
+                    changedTalismans = Talisman.createTalismanList();
+                    textList = Text.createTextList();
+                    changedText = Text.createTextList();
+                    displayCharacterDetails(currentChar);
+                }catch (Exception e){
+                    
+                }
+                return null;
+            };
+        };
+        saveTask.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent t) {
+                statusBox.getChildren().remove(saveProgress);
+                changesLabel.setText("Changes Saved!");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+                changesLabel.setText("");
             }
-        }
-        
-        writeArrayToFile("src/main/resources/com/dleditor/files/CharaData.json", changedCharacters);
-        writeArrayToFile("src/main/resources/com/dleditor/files/TextLabel.json", changedText);
+        });
+
+        new Thread(saveTask).start();
 
     }
 
+    //Save a specific group of changes to a specific group of files
     @FXML
     private void saveChangesAs() throws JsonIOException, IOException{
         writeArrayToOtherFile("src/main/resources/com/dleditor/files/CharaData.json", changedCharacters, null);
     }
 
+    //Revert everything in the changed arrays back to the base
     @FXML 
     private void revertChanges(){
         Alert revertAlert = createAlert(AlertType.CONFIRMATION,"Revert Unsaved Changes","Are you sure?","This will reset all the lists to whatever is stored in the files!", ButtonType.YES,ButtonType.NO);
@@ -770,6 +866,8 @@ public class PrimaryController extends App{
                         changedDragons = Dragon.createDragonList();
                         talismanList = Talisman.createTalismanList();
                         changedTalismans = Talisman.createTalismanList();
+                        textList = Text.createTextList();
+                        changedText = Text.createTextList();
                         displayCharacterDetails(currentChar);
                     }catch (Exception e){
                         
@@ -777,6 +875,7 @@ public class PrimaryController extends App{
                 }
     }
 
+    //Rebuild the list of buttons
     @FXML
     private void rebuildLists(){
         Alert alert = createAlertWithCheckBox(AlertType.CONFIRMATION, "Rebuild Lists","Would you like to rebuild the button lists?",null, "Include Empty IDs?",event -> getEmpty = event,getEmpty,ButtonType.YES, ButtonType.NO);
@@ -789,6 +888,7 @@ public class PrimaryController extends App{
         toggleDisabledFields();
     }
 
+    //Open the settings menu
     @FXML 
     private void openPreferences(){
         Alert settingsAlert = new Alert(AlertType.NONE);
@@ -826,6 +926,8 @@ public class PrimaryController extends App{
         settingsAlert.getDialogPane().getButtonTypes().addAll(save,exit);
         settingsAlert.setTitle("Settings");
 
+        settingsAlert.getDialogPane().getStylesheets().add(getClass().getResource("themes/"+theme).toExternalForm());
+
         final Button bt = (Button) settingsAlert.getDialogPane().lookupButton(save);
             bt.addEventFilter(ActionEvent.ACTION, event -> {
             SettingsController.saveSettings();
@@ -838,6 +940,7 @@ public class PrimaryController extends App{
             
     }
 
+    //Interrupt the normal closing of the window to throw an alert
     @FXML
     private void closeWindow(){
         Alert confirmAlert = createAlert(AlertType.NONE,null,null,"Are you sure you wish to quit?\nUnsaved changes will be lost", ButtonType.YES,ButtonType.NO);
@@ -848,11 +951,13 @@ public class PrimaryController extends App{
         }
     }
 
+    //Open where the required files are supposed to go in the file explorer
     @FXML
     private void openFolder(){
         Console.openFolder("src\\main\\resources\\com\\dleditor\\files\\");
     }
 
+    //Check to see if the menu should let you press buttons/See if certain tasks are done
     @FXML
     private void checkTasks(){
         if(task1Done && task2Done && task3Done){
@@ -861,10 +966,20 @@ public class PrimaryController extends App{
             toggleDisabledFields();
         }else{
             rebuildButton.setDisable(true);
+            saveButton.setDisable(true);
+            saveAsButton.setDisable(true);
             tasksDone = false;
+        }
+        if(!characterList.equals(changedCharacters)){
+            saveButton.setDisable(false);
+            saveAsButton.setDisable(false);
+        }else{
+            saveButton.setDisable(true);
+            saveAsButton.setDisable(true);
         }
     }
 
+    //Make an alert w/ a checkbox
     public Alert createAlertWithCheckBox(AlertType type, String title, String headerText, String message, String checkboxPrompt, Consumer<Boolean> checkboxAction, Boolean isSelected, ButtonType... buttonTypes) {
         Alert alert = new Alert(type);
         // Need to force the alert to layout in order to grab the graphic,
@@ -898,6 +1013,7 @@ public class PrimaryController extends App{
         return alert;
     }
 
+    //Make a custom alert
     public Alert createAlert(AlertType type, String title, String headerText, String message, ButtonType... buttonTypes) {
         Alert alert = new Alert(type);
         alert.getDialogPane().applyCss();
@@ -921,6 +1037,7 @@ public class PrimaryController extends App{
         return alert;
     }
     
+    //Toggle if everything is disabled or not based on if the lists are done being built
     private void toggleDisabledFields(){
         ArrayList<Node> temp = new ArrayList<>();
         ArrayList<Node> detailNodes = Console.getAllNodes(detailPane);
@@ -937,12 +1054,13 @@ public class PrimaryController extends App{
             }
         }
     }
-        
+    
+    //Make sure a field contains an integer of a specified length when focus is switched
     private void validateIntOnExit(boolean value, Node element, int length) {
         if(value == false){
             String errorMsg = "";
             try{
-                if(((TextField)element).getText().length() != length){
+                if(((TextField)element).getText().length() != length && length != 0){
                     errorMsg += ((TextField)element).getId().toString().replace("adv","") + " must be " + length + " character(s) long!\n";
                 }
     
@@ -964,6 +1082,7 @@ public class PrimaryController extends App{
         }
     }
 
+    //Get a JsonArray from a file, specifically works with Dragalia Files
     private JsonArray getJsonArrayFromFile(String fileName) throws FileNotFoundException{
         Gson gson = new Gson();
         //Get full file as a jsonreader
@@ -980,6 +1099,7 @@ public class PrimaryController extends App{
         return entryArray;
     }
 
+    //Write to and rebuild a Dragalia Json File
     private void writeArrayToFile(String fileName, ArrayList<?> array) throws JsonIOException, IOException{
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         //Get full file as a jsonreader
@@ -1002,6 +1122,7 @@ public class PrimaryController extends App{
         Console.writeAsJson(data, fileName);
     }
 
+    //Write to and rebuild a file in the style of Dragalia files
     private void writeArrayToOtherFile(String fileName, ArrayList<?> array, String outputFile) throws JsonIOException, IOException{
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         //Get full file as a jsonreader

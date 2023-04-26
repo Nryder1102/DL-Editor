@@ -66,8 +66,8 @@
             <MenuItem mnemonicParsing="false" onAction="#openFolder" text="Open Location" />
                   <MenuItem fx:id="rebuildButton" mnemonicParsing="false" onAction="#rebuildLists" text="Rebuild Lists" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#saveChanges" text="Save" />
-            <MenuItem mnemonicParsing="false" onAction="#saveChangesAs" text="Save As…" />
+            <MenuItem fx:id="saveButton" mnemonicParsing="false" onAction="#saveChanges" text="Save" />
+            <MenuItem fx:id="saveAsButton" mnemonicParsing="false" onAction="#saveChangesAs" text="Save As…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#openPreferences" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -154,7 +154,7 @@
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                   <AnchorPane fx:id="advDetailPane" layoutX="14.0" layoutY="46.0" prefHeight="504.0" prefWidth="482.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="46.0">
                      <children>
-                        <GridPane fx:id="advBasicDetailGrid" prefHeight="460.0" prefWidth="482.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <GridPane fx:id="advBasicDetailGrid" prefHeight="460.0" prefWidth="482.0" visible="false" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.4" minWidth="10.0" prefWidth="211.8000244140625" />
                               <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
@@ -631,7 +631,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities13" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities13" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="5">
@@ -644,7 +644,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Ability 2" />
-                                    <TextField fx:id="advAbilities21" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities21" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="4">
@@ -656,7 +656,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities14" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities14" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
@@ -668,7 +668,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbilityData3" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData3" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="9">
@@ -680,7 +680,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities31" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities31" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Ability 3:" />
                                  </children>
                               </GridPane>
@@ -693,7 +693,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbility2Data2" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data2" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane>
@@ -706,7 +706,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Skill 1:" />
-                                    <TextField fx:id="advSkill1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSkill1" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2">
@@ -719,7 +719,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Skill 2:" />
-                                    <TextField fx:id="advSkill2" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSkill2" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="1">
@@ -732,7 +732,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Ability 1:" />
-                                    <TextField fx:id="advAbilities11" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities11" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="2">
@@ -744,7 +744,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities12" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities12" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -757,7 +757,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Support Skill #:" />
-                                    <TextField fx:id="advSupportSkillNum" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSupportSkillNum" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -769,7 +769,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advSkillChainValidTime" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advSkillChainValidTime" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Valid Chain Time:" />
                                  </children>
                               </GridPane>
@@ -782,7 +782,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities23" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities23" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="8">
@@ -794,7 +794,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities24" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities24" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="10">
@@ -806,7 +806,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities32" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities32" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="12">
@@ -818,7 +818,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities34" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities34" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="11">
@@ -830,7 +830,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities33" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities33" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="13">
@@ -861,7 +861,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Co-Ability 1:" />
-                                    <TextField fx:id="advExAbilityData1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData1" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
@@ -873,7 +873,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbilityData2" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData2" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
@@ -885,7 +885,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbilityData5" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData5" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="8">
@@ -897,7 +897,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbility2Data1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data1" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Co-Ability 2:" />
                                  </children>
                               </GridPane>
@@ -910,7 +910,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbility2Data3" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data3" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="11">
@@ -922,7 +922,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbility2Data4" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data4" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="12">
@@ -934,7 +934,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbility2Data5" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbility2Data5" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="14">
@@ -971,7 +971,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advAbilities22" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advAbilities22" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -983,7 +983,7 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advExAbilityData4" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advExAbilityData4" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <CheckBox fx:id="advEditCoAbility2" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="8" />
@@ -1031,7 +1031,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advHoldEditSkillCost" disable="true" prefWidth="85.0" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advHoldEditSkillCost" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" prefWidth="85.0" GridPane.columnIndex="1" />
                                     <Label text="Hold Edit Skill Cost:" />
                                  </children>
                               </GridPane>
@@ -1044,7 +1044,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditSkillCost" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillCost" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill Cost:" />
                                  </children>
                               </GridPane>
@@ -1057,7 +1057,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditSkillId" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillId" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill ID:" />
                                  </children>
                               </GridPane>
@@ -1070,7 +1070,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditSkillRelationId" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillRelationId" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill Relation ID:" />
                                  </children>
                               </GridPane>
@@ -1083,7 +1083,7 @@
                                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advDefaultIsUnlockEditSkill" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultIsUnlockEditSkill" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Default Is Unlocked Edit Skill:" />
                                  </children>
                               </GridPane>
@@ -1118,7 +1118,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Charge Type:" />
-                                    <TextField fx:id="advChargeType" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advChargeType" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -1131,7 +1131,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Burst Attack Level:" />
-                                    <TextField fx:id="advDefaultBurstAttackLevel" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultBurstAttackLevel" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -1144,7 +1144,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Max Charge Level:" />
-                                    <TextField fx:id="advMaxChargeLv" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advMaxChargeLv" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="9">
@@ -1156,7 +1156,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditReleaseEntityQuantity1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditReleaseEntityQuantity1" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Release Entity Quantity:" />
                                  </children>
                               </GridPane>
@@ -1179,7 +1179,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Ability 1 Level:" />
-                                    <TextField fx:id="advDefaultAbility1Level" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultAbility1Level" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="11">
@@ -1204,7 +1204,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Ability Level 3:" />
-                                    <TextField fx:id="advDefaultAbility3Level" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultAbility3Level" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.rowIndex="15">
@@ -1233,7 +1233,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Is Unuse Dmode Edit Skill:" />
-                                    <TextField fx:id="advIsUnuseDmodeEditSkill" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advIsUnuseDmodeEditSkill" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -1245,7 +1245,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditSkillLevelNum" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditSkillLevelNum" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Skill Level #:" />
                                  </children>
                               </GridPane>
@@ -1277,7 +1277,7 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Default Ability 2 Level:" />
-                                    <TextField fx:id="advDefaultAbility2Level" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advDefaultAbility2Level" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <GridPane GridPane.columnIndex="2" GridPane.rowIndex="15">
@@ -1299,10 +1299,10 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Convert Dragon Skill Level:" />
-                                    <TextField fx:id="advIsConvertDragonSkillLevel" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advIsConvertDragonSkillLevel" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
-                              <CheckBox fx:id="advEditChargeGroup" mnemonicParsing="false" GridPane.columnIndex="3" />
+                              <CheckBox fx:id="advEditChargeGroup" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" />
                               <GridPane GridPane.rowIndex="8">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="155.5999984741211" minWidth="10.0" prefWidth="155.5999984741211" />
@@ -1312,7 +1312,7 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditReleaseEntityType1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditReleaseEntityType1" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Release Entity Type 1:" />
                                  </children>
                               </GridPane>
@@ -1325,11 +1325,11 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <TextField fx:id="advEditReleaseEntityId1" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advEditReleaseEntityId1" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                     <Label text="Edit Release Entity ID 1:" />
                                  </children>
                               </GridPane>
-                              <CheckBox fx:id="advEditEditSkillGroup" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                              <CheckBox fx:id="advEditEditSkillGroup" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="4" />
                               <GridPane GridPane.rowIndex="2">
                                  <columnConstraints>
                                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.39998626708984" minWidth="10.0" prefWidth="164.39998626708984" />
@@ -1340,11 +1340,434 @@
                                  </rowConstraints>
                                  <children>
                                     <Label text="Change BA During Charge:" />
-                                    <TextField fx:id="advOnChangeBADuringCharge" disable="true" GridPane.columnIndex="1" />
+                                    <TextField fx:id="advOnChangeBADuringCharge" alignment="CENTER" disable="true" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
                                  </children>
                               </GridPane>
                               <Label text="Edit Skill Group:" GridPane.rowIndex="4" />
-                              <CheckBox fx:id="advEditLevelGroup" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                              <CheckBox fx:id="advEditLevelGroup" disable="true" mnemonicParsing="false" GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                           </children>
+                        </GridPane>
+                        <GridPane fx:id="advStatsGrid" prefHeight="460.0" prefWidth="482.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.4" minWidth="10.0" prefWidth="211.8000244140625" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.800048828125" minWidth="10.0" prefWidth="212.79996337890628" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <GridPane GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MaxHP:" />
+                                    <TextField fx:id="advMaxHp" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="5">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="4">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="AddMaxHP1:" />
+                                    <TextField fx:id="advAddMaxHp1" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="8">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusHP2:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusATK2:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane>
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinHP3:" />
+                                    <TextField fx:id="advMinHp3" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" prefHeight="26.0" prefWidth="100.0" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinATK3:" />
+                                    <TextField fx:id="advMinAtk3" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinHP4:" />
+                                    <TextField fx:id="advMinHp4" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinHP5:" />
+                                    <TextField fx:id="advMinHp5" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinATK5:" />
+                                    <TextField fx:id="advMinAtk5" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinATK4:" />
+                                    <TextField fx:id="advMinAtk4" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="6">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label fx:id="advJPVA1" text="PlusHP0:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="7">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusHP1:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="10">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusHP4:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="9">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusHP3:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="11">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label fx:id="advENVA1" text="PlusHP5:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="12">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MCFullBonusHP5:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="14">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MinDEF:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="13">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="15">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MaxATK:" />
+                                    <TextField fx:id="advMaxAtk" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="AddMaxATK1:" />
+                                    <TextField fx:id="advAddMaxAtk1" alignment="CENTER" focusTraversable="false" onKeyReleased="#advGetDataFromField" GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusATK0:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusATK1:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="10">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusATK4:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="11">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusATK5:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="9">
+                                 <columnConstraints>
+                                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="PlusATK3" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="13">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="12">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="MCFullBonusATK5:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="14">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="DEFCoef:" />
+                                 </children>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="15">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.rowIndex="16">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
+                              <GridPane GridPane.columnIndex="2" GridPane.rowIndex="16">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                              </GridPane>
                            </children>
                         </GridPane>
                      </children>
@@ -1355,10 +1778,10 @@
         </AnchorPane>
       </items>
     </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+    <HBox id="HBox" fx:id="statusBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label maxWidth="-1.0" HBox.hgrow="NEVER">
+        <Label fx:id="changesLabel" maxWidth="-1.0" textAlignment="CENTER" HBox.hgrow="NEVER">
                <textFill>
             <Color red="0.625" green="0.625" blue="0.625" fx:id="x4" />
                </textFill>

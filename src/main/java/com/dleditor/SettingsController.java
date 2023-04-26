@@ -8,9 +8,12 @@ import com.google.gson.JsonObject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.Pane;
 
 public class SettingsController extends PrimaryController{
 
@@ -21,11 +24,13 @@ public class SettingsController extends PrimaryController{
     @FXML private ToggleButton emptyNo;
     private static Boolean tempEmpty;
     private static JsonObject staticSettings;
+    @FXML private Pane settingsBox;
 
     @FXML
     private void initialize(){
         //Get settings
         try {
+            settingsBox.getStylesheets().add(getClass().getResource("themes/"+theme).toExternalForm());
             staticSettings = Console.getAsJsonObject("src\\main\\resources\\com\\dleditor\\settings.json");
             themeList = FXCollections.observableArrayList(((String[])Console.getFolderContents("src\\main\\resources\\com\\dleditor\\themes")));
             themeBox.setItems(themeList);
@@ -64,7 +69,6 @@ public class SettingsController extends PrimaryController{
         getEmpty = tempEmpty;
         staticSettings.addProperty("theme",theme);
         staticSettings.addProperty("loadEmptyByDefault", getEmpty);
-        System.out.println(staticSettings);
         try {
             Console.writeAsJson(staticSettings, "src\\main\\resources\\com\\dleditor\\settings.json");
         } catch (JsonIOException e) {
@@ -74,7 +78,6 @@ public class SettingsController extends PrimaryController{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
     }
 
     @FXML
@@ -86,5 +89,4 @@ public class SettingsController extends PrimaryController{
     private void openFolder(){
         Console.openFolder("src\\main\\resources\\com\\dleditor\\themes\\");
     }
-
 }

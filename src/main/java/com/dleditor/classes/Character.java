@@ -1,16 +1,14 @@
 package com.dleditor.classes;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.dleditor.Console;
-import com.dleditor.classes.Types.Element;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 public class Character{
 
@@ -194,536 +192,536 @@ public class Character{
     }
     //I'll deal with these later
 /*    public static int getMaxLimitBreakCount(JsonObject element) {
-        return element.get() maxLimitBreakCount;
+        return element.get("_MaxLimitBreakCount").getAsInt();
     }
     public static void setMaxLimitBreakCount(JsonObject element, int maxLimitBreakCount) {
         this.maxLimitBreakCount = maxLimitBreakCount;
     }
     public static int getMinHp3(JsonObject element) {
-        return element.get() minHp3;
+        return element.get("_MinHp3").getAsInt();
     }
 
     public static void setMinHp3(JsonObject element, int minHp3) {
         this.minHp3 = minHp3;
     }
     public static int getMinHp4(JsonObject element) {
-        return element.get() minHp4;
+        return element.get("_MinHp4").getAsInt();
     }
     public static void setMinHp4(JsonObject element, int minHp4) {
         this.minHp4 = minHp4;
     }
     public static int getMinHp5(JsonObject element) {
-        return element.get() minHp5;
+        return element.get("_MinHp5").getAsInt();
     }
     public static void setMinHp5(JsonObject element, int minHp5) {
         this.minHp5 = minHp5;
     }
     public static int getMaxHp(JsonObject element) {
-        return element.get() maxHp;
+        return element.get("_MaxHp").getAsInt();
     }
     public static void setMaxHp(JsonObject element, int maxHp) {
         this.maxHp = maxHp;
     }
     public static int getAddMaxHp1(JsonObject element) {
-        return element.get() addMaxHp1;
+        return element.get("_AddMaxHp1").getAsInt();
     }
     public static void setAddMaxHp1(JsonObject element, int addMaxHp1) {
         this.addMaxHp1 = addMaxHp1;
     }
     public static int getPlusHp0(JsonObject element) {
-        return element.get() plusHp0;
+        return element.get("_PlusHp0").getAsInt();
     }
     public static void setPlusHp0(JsonObject element, int plusHp0) {
         this.plusHp0 = plusHp0;
     }
     public static int getPlusHp1(JsonObject element) {
-        return element.get() plusHp1;
+        return element.get("_PlusHp1").getAsInt;
     }
     public static void setPlusHp1(JsonObject element, int plusHp1) {
         this.plusHp1 = plusHp1;
     }
     public static int getPlusHp2(JsonObject element) {
-        return element.get() plusHp2;
+        return element.get("_PlusHp2").getAsInt();
     }
     public static void setPlusHp2(JsonObject element, int plusHp2) {
         this.plusHp2 = plusHp2;
     }
     public static int getPlusHp3(JsonObject element) {
-        return element.get() plusHp3;
+        return element.get("_PlusHp3").getAsInt();
     }
     public static void setPlusHp3(JsonObject element, int plusHp3) {
         this.plusHp3 = plusHp3;
     }
     public static int getPlusHp4(JsonObject element) {
-        return element.get() plusHp4;
+        return element.get("_PlusHp4").getAsInt();
     }
     public static void setPlusHp4(JsonObject element, int plusHp4) {
         this.plusHp4 = plusHp4;
     }
     public static int getPlusHp5(JsonObject element) {
-        return element.get() plusHp5;
+        return element.get("_PlusHp5").getAsInt();
     }
     public static void setPlusHp5(JsonObject element, int plusHp5) {
         this.plusHp5 = plusHp5;
     }
     public static int getMcFullBonusHp5(JsonObject element) {
-        return element.get() mcFullBonusHp5;
+        return element.get("_McFullBonusHp5").getAsInt();
     }
     public static void setMcFullBonusHp5(JsonObject element, int mcFullBonusHp5) {
         this.mcFullBonusHp5 = mcFullBonusHp5;
     }
     public static int getMinAtk3(JsonObject element) {
-        return element.get() minAtk3;
+        return element.get("_MinAtk3").getAsInt();
     }
     public static void setMinAtk3(JsonObject element, int minAtk3) {
         this.minAtk3 = minAtk3;
     }
     public static int getMinAtk4(JsonObject element) {
-        return element.get() minAtk4;
+        return element.get("_MinAtk4").getAsInt();
     }
     public static void setMinAtk4(JsonObject element, int minAtk4) {
         this.minAtk4 = minAtk4;
     }
     public static int getMinAtk5(JsonObject element) {
-        return element.get() minAtk5;
+        return element.get("_MinAtk5").getAsInt();
     }
     public static void setMinAtk5(JsonObject element, int minAtk5) {
         this.minAtk5 = minAtk5;
     }
     public static int getMaxAtk(JsonObject element) {
-        return element.get() maxAtk;
+        return element.get("_MaxAtk").getAsInt();
     }
     public static void setMaxAtk(JsonObject element, int maxAtk) {
         this.maxAtk = maxAtk;
     }
     public static int getAddMaxAtk1(JsonObject element) {
-        return element.get() addMaxAtk1;
+        return element.get("_AddMaxAtk1").getAsInt();
     }
     public static void setAddMaxAtk1(JsonObject element, int addMaxAtk1) {
         this.addMaxAtk1 = addMaxAtk1;
     }
     public static int getPlusAtk0(JsonObject element) {
-        return element.get() plusAtk0;
+        return element.get("_PlusAtk0").getAsInt();
     }
     public static void setPlusAtk0(JsonObject element, int plusAtk0) {
         this.plusAtk0 = plusAtk0;
     }
     public static int getPlusAtk1(JsonObject element) {
-        return element.get() plusAtk1;
+        return element.get("_PlusAtk1").getAsInt();
     }
     public static void setPlusAtk1(JsonObject element, int plusAtk1) {
         this.plusAtk1 = plusAtk1;
     }
     public static int getPlusAtk2(JsonObject element) {
-        return element.get() plusAtk2;
+        return element.get("_PlusAtk2").getAsInt();
     }
     public static void setPlusAtk2(JsonObject element, int plusAtk2) {
         this.plusAtk2 = plusAtk2;
     }
     public static int getPlusAtk3(JsonObject element) {
-        return element.get() plusAtk3;
+        return element.get("_PlusAtk3").getAsInt();
     }
     public static void setPlusAtk3(JsonObject element, int plusAtk3) {
         this.plusAtk3 = plusAtk3;
     }
     public static int getPlusAtk4(JsonObject element) {
-        return element.get() plusAtk4;
+        return element.get("_PlusAtk4").getAsInt();
     }
     public static void setPlusAtk4(JsonObject element, int plusAtk4) {
         this.plusAtk4 = plusAtk4;
     }
     public static int getPlusAtk5(JsonObject element) {
-        return element.get() plusAtk5;
+        return element.get("_PlusAtk5").getAsInt();
     }
     public static void setPlusAtk5(JsonObject element, int plusAtk5) {
         this.plusAtk5 = plusAtk5;
     }
     public static int getMcFullBonusAtk5(JsonObject element) {
-        return element.get() mcFullBonusAtk5;
+        return element.get("_McFullBonusAtk5").getAsInt();
     }
     public static void setMcFullBonusAtk5(JsonObject element, int mcFullBonusAtk5) {
         this.mcFullBonusAtk5 = mcFullBonusAtk5;
     }
     public static int getMinDef(JsonObject element) {
-        return element.get() minDef;
+        return element.get("_MinDef").getAsInt();
     }
     public static void setMinDef(JsonObject element, int minDef) {
         this.minDef = minDef;
     }
     public static double getDefCoef(JsonObject element) {
-        return element.get() defCoef;
+        return element.get("_DefCoef").getAsDouble();
     }
     public static void setDefCoef(double defCoef) {
         this.defCoef = defCoef;
     }
     public static int getModeChangeType(JsonObject element) {
-        return element.get() modeChangeType;
+        return element.get("_ModeChangeType").getAsInt();
     }
     public static void setModeChangeType(JsonObject element, int modeChangeType) {
         this.modeChangeType = modeChangeType;
     }
     public static int getModeId1(JsonObject element) {
-        return element.get() modeId1;
+        return element.get("_ModeId1").getAsInt();
     }
     public static void setModeId1(JsonObject element, int modeId1) {
         this.modeId1 = modeId1;
     }
     public static int getModeId2(JsonObject element) {
-        return element.get() modeId2;
+        return element.get("_ModeId2").getAsInt();
     }
     public static void setModeId2(JsonObject element, int modeId2) {
         this.modeId2 = modeId2;
     }
     public static int getModeId3(JsonObject element) {
-        return element.get() modeId3;
+        return element.get("_ModeId3").getAsInt();
     }
     public static void setModeId3(JsonObject element, int modeId3) {
         this.modeId3 = modeId3;
     }
     public static int getModeId4(JsonObject element) {
-        return element.get() modeId4;
+        return element.get("_ModeId4").getAsInt();
     }
     public static void setModeId4(JsonObject element, int modeId4) {
         this.modeId4 = modeId4;
     }
     public static int getKeepModeOnRevive(JsonObject element) {
-        return element.get() keepModeOnRevive;
+        return element.get("_KeepModeOnRevive").getAsInt();
     }
     public static void setKeepModeOnRevive(JsonObject element, int keepModeOnRevive) {
         this.keepModeOnRevive = keepModeOnRevive;
     }
     public static int getOriginCombo(JsonObject element) {
-        return element.get() originCombo;
+        return element.get("_OriginCombo").getAsInt();
     }
     public static void setOriginCombo(JsonObject element, int originCombo) {
         this.originCombo = originCombo;
     }
     public static int getMode1Combo(JsonObject element) {
-        return element.get() mode1Combo;
+        return element.get("_Mode1Combo").getAsInt();
     }
     public static void setMode1Combo(JsonObject element, int mode1Combo) {
         this.mode1Combo = mode1Combo;
     }
     public static int getMode2Combo(JsonObject element) {
-        return element.get() mode2Combo;
+        return element.get("_Mode2Combo").getAsInt();
     }
     public static void setMode2Combo(JsonObject element, int mode2Combo) {
         this.mode2Combo = mode2Combo;
     }
     public static double getSearchRange(JsonObject element) {
-        return element.get() searchRange;
+        return element.get("_SearchRange").getAsDouble();
     }
     public static void setSearchRange(double searchRange) {
         this.searchRange = searchRange;
     }
     public static double getSearchAngle(JsonObject element) {
-        return element.get() searchAngle;
+        return element.get("_SearchAngle").getAsDouble();
     }
     public static void setSearchAngle(double searchAngle) {
         this.searchAngle = searchAngle;
     }
     public static int getAttackRangeType(JsonObject element) {
-        return element.get() attackRangeType;
+        return element.get("_AttackRangeType").getAsInt();
     }
     public static void setAttackRangeType(JsonObject element, int attackRangeType) {
         this.attackRangeType = attackRangeType;
     }
     public static int getBurstAttack(JsonObject element) {
-        return element.get() burstAttack;
+        return element.get("_BurstAttack").getAsInt();
     }
     public static void setBurstAttack(JsonObject element, int burstAttack) {
         this.burstAttack = burstAttack;
     }
     public static int getDashAttack(JsonObject element) {
-        return element.get() dashAttack;
+        return element.get("_DashAttack").getAsInt();
     }
     public static void setDashAttack(JsonObject element, int dashAttack) {
         this.dashAttack = dashAttack;
     }
     public static int getAvoid(JsonObject element) {
-        return element.get() avoid;
+        return element.get("_Avoid").getAsInt();
     }
     public static void setAvoid(JsonObject element, int avoid) {
         this.avoid = avoid;
     }
     public static int getAvoidOnCombo(JsonObject element) {
-        return element.get() avoidOnCombo;
+        return element.get("_AvoidOnCombo").getAsInt();
     }
     public static void setAvoidOnCombo(JsonObject element, int avoidOnCombo) {
         this.avoidOnCombo = avoidOnCombo;
     }
     public static int getBackAvoidOnCombo(JsonObject element) {
-        return element.get() backAvoidOnCombo;
+        return element.get("_BackAvoidOnCombo").getAsInt();
     }
     public static void setBackAvoidOnCombo(JsonObject element, int backAvoidOnCombo) {
         this.backAvoidOnCombo = backAvoidOnCombo;
     }
     public static int getGuts(JsonObject element) {
-        return element.get() guts;
+        return element.get("_Guts").getAsInt();
     }
     public static void setGuts(JsonObject element, int guts) {
         this.guts = guts;
     }
     public static int getAppear(JsonObject element) {
-        return element.get() appear;
+        return element.get("_Appear").getAsInt();
     }
     public static void setAppear(JsonObject element, int appear) {
         this.appear = appear;
     }
     public static int getRevive(JsonObject element) {
-        return element.get() revive;
+        return element.get("_Revive").getAsInt();
     }
     public static void setRevive(JsonObject element, int revive) {
         this.revive = revive;
     }
     public static int getDisappear(JsonObject element) {
-        return element.get() disappear;
+        return element.get("_Disappear").getAsInt();
     }
     public static void setDisappear(JsonObject element, int disappear) {
         this.disappear = disappear;
     }
     public static int getWin(JsonObject element) {
-        return element.get() win;
+        return element.get("_Win").getAsInt();
     }
     public static void setWin(JsonObject element, int win) {
         this.win = win;
     }
     public static String getEffNameCriticalHit(JsonObject element) {
-        return element.get() effNameCriticalHit;
+        return element.get("_EffNameCriticalHit").getAsString();
     }
     public static void setEffNameCriticalHit(String effNameCriticalHit) {
         this.effNameCriticalHit = effNameCriticalHit;
     }
     public static int getSkill1(JsonObject element) {
-        return element.get() skill1;
+        return element.get("_Skill1").getAsInt();
     }
     public static void setSkill1(JsonObject element, int skill1) {
         this.skill1 = skill1;
     }
     public static int getSkill2(JsonObject element) {
-        return element.get() skill2;
+        return element.get("_ Skill2").getAsInt();
     }
     public static void setSkill2(JsonObject element, int skill2) {
         this.skill2 = skill2;
     }
     public static double getSkillChainValidTime(JsonObject element) {
-        return element.get() skillChainValidTime;
+        return element.get("_SkillChainValidTime").getAsDouble();
     }
     public static void setSkillChainValidTime(double skillChainValidTime) {
         this.skillChainValidTime = skillChainValidTime;
     }
     public static int getSkillChainSpbarCount(JsonObject element) {
-        return element.get() skillChainSpbarCount;
+        return element.get("_SkillChainSpbarCount").getAsInt();
     }
     public static void setSkillChainSpbarCount(JsonObject element, int skillChainSpbarCount) {
         this.skillChainSpbarCount = skillChainSpbarCount;
     }
     public static int getSupportSkillNum(JsonObject element) {
-        return element.get() supportSkillNum;
+        return element.get("_SupportSkillNum").getAsInt();
     }
     public static void setSupportSkillNum(JsonObject element, int supportSkillNum) {
         this.supportSkillNum = supportSkillNum;
     }
     public static int getAbilities11(JsonObject element) {
-        return element.get() abilities11;
+        return element.get("_Abilities11").getAsInt();
     }
     public static void setAbilities11(JsonObject element, int abilities11) {
         this.abilities11 = abilities11;
     }
     public static int getAbilities12(JsonObject element) {
-        return element.get() abilities12;
+        return element.get("_Abilities12").getAsInt();
     }
     public static void setAbilities12(JsonObject element, int abilities12) {
         this.abilities12 = abilities12;
     }
     public static int getAbilities13(JsonObject element) {
-        return element.get() abilities13;
+        return element.get("_Abilities13").getAsInt();
     }
     public static void setAbilities13(JsonObject element, int abilities13) {
         this.abilities13 = abilities13;
     }
     public static int getAbilities14(JsonObject element) {
-        return element.get() abilities14;
+        return element.get("_Abilities14").getAsInt();
     }
     public static void setAbilities14(JsonObject element, int abilities14) {
         this.abilities14 = abilities14;
     }
     public static int getAbilities21(JsonObject element) {
-        return element.get() abilities21;
+        return element.get("_Abilities21").getAsInt();
     }
     public static void setAbilities21(JsonObject element, int abilities21) {
         this.abilities21 = abilities21;
     }
     public static int getAbilities22(JsonObject element) {
-        return element.get() abilities22;
+        return element.get("_Abilities22").getAsInt();
     }
     public static void setAbilities22(JsonObject element, int abilities22) {
         this.abilities22 = abilities22;
     }
     public static int getAbilities23(JsonObject element) {
-        return element.get() abilities23;
+        return element.get("_Abilities23").getAsInt();
     }
     public static void setAbilities23(JsonObject element, int abilities23) {
         this.abilities23 = abilities23;
     }
     public static int getAbilities24(JsonObject element) {
-        return element.get() abilities24;
+        return element.get("_Abilities24").getAsInt();
     }
     public static void setAbilities24(JsonObject element, int abilities24) {
         this.abilities24 = abilities24;
     }
     public static int getAbilities31(JsonObject element) {
-        return element.get() abilities31;
+        return element.get("_Abilities31").getAsInt();
     }
     public static void setAbilities31(JsonObject element, int abilities31) {
         this.abilities31 = abilities31;
     }
     public static int getAbilities32(JsonObject element) {
-        return element.get() abilities32;
+        return element.get("_Abilities32").getAsInt();
     }
     public static void setAbilities32(JsonObject element, int abilities32) {
         this.abilities32 = abilities32;
     }
     public static int getAbilities33(JsonObject element) {
-        return element.get() abilities33;
+        return element.get("_Abilities33").getAsInt();
     }
     public static void setAbilities33(JsonObject element, int abilities33) {
         this.abilities33 = abilities33;
     }
     public static int getAbilities34(JsonObject element) {
-        return element.get() abilities34;
+        return element.get("_Abilities34").getAsInt();
     }
     public static void setAbilities34(JsonObject element, int abilities34) {
         this.abilities34 = abilities34;
     }
     public static int getExAbilityData1(JsonObject element) {
-        return element.get() exAbilityData1;
+        return element.get("_ExAbilityData1").getAsInt();
     }
     public static void setExAbilityData1(JsonObject element, int exAbilityData1) {
         this.exAbilityData1 = exAbilityData1;
     }
     public static int getExAbilityData2(JsonObject element) {
-        return element.get() exAbilityData2;
+        return element.get("_ExAbilityData2").getAsInt();
     }
     public static void setExAbilityData2(JsonObject element, int exAbilityData2) {
         this.exAbilityData2 = exAbilityData2;
     }
     public static int getExAbilityData3(JsonObject element) {
-        return element.get() exAbilityData3;
+        return element.get("_ExAbilityData3").getAsInt();
     }
     public static void setExAbilityData3(JsonObject element, int exAbilityData3) {
         this.exAbilityData3 = exAbilityData3;
     }
     public static int getExAbilityData4(JsonObject element) {
-        return element.get() exAbilityData4;
+        return element.get("_ExAbilityData4").getAsInt();
     }
     public static void setExAbilityData4(JsonObject element, int exAbilityData4) {
         this.exAbilityData4 = exAbilityData4;
     }
     public static int getExAbilityData5(JsonObject element) {
-        return element.get() exAbilityData5;
+        return element.get("_ExAbilityData5").getAsInt();
     }
     public static void setExAbilityData5(JsonObject element, int exAbilityData5) {
         this.exAbilityData5 = exAbilityData5;
     }
     public static int getExAbility2Data1(JsonObject element) {
-        return element.get() exAbility2Data1;
+        return element.get("_ExAbility2Data1").getAsInt();
     }
     public static void setExAbility2Data1(JsonObject element, int exAbility2Data1) {
         this.exAbility2Data1 = exAbility2Data1;
     }
     public static int getExAbility2Data2(JsonObject element) {
-        return element.get() exAbility2Data2;
+        return element.get("_ExAbility2Data2").getAsInt();
     }
     public static void setExAbility2Data2(JsonObject element, int exAbility2Data2) {
         this.exAbility2Data2 = exAbility2Data2;
     }
     public static int getExAbility2Data3(JsonObject element) {
-        return element.get() exAbility2Data3;
+        return element.get("_ExAbility2Data3").getAsInt();
     }
     public static void setExAbility2Data3(JsonObject element, int exAbility2Data3) {
         this.exAbility2Data3 = exAbility2Data3;
     }
     public static int getExAbility2Data4(JsonObject element) {
-        return element.get() exAbility2Data4;
+        return element.get("_ExAbility2Data4").getAsInt();
     }
     public static void setExAbility2Data4(JsonObject element, int exAbility2Data4) {
         this.exAbility2Data4 = exAbility2Data4;
     }
     public static int getExAbility2Data5(JsonObject element) {
-        return element.get() exAbility2Data5;
+        return element.get("_ExAbility2Data5").getAsInt();
     }
     public static void setExAbility2Data5(JsonObject element, int exAbility2Data5) {
         this.exAbility2Data5 = exAbility2Data5;
     }
     public static int getChargeType(JsonObject element) {
-        return element.get() chargeType;
+        return element.get("_ChargeType").getAsInt();
     }
     public static void setChargeType(JsonObject element, int chargeType) {
         this.chargeType = chargeType;
     }
     public static int getMaxChargeLv(JsonObject element) {
-        return element.get() maxChargeLv;
+        return element.get("_MaxChargeLv").getAsInt();
     }
     public static void setMaxChargeLv(JsonObject element, int maxChargeLv) {
         this.maxChargeLv = maxChargeLv;
     }
     public static int getOnChangeBADuringCharge(JsonObject element) {
-        return element.get() onChangeBADuringCharge;
+        return element.get("_OnChangeBADuringCharge").getAsInt();
     }
     public static void setOnChangeBADuringCharge(JsonObject element, int onChangeBADuringCharge) {
         this.onChangeBADuringCharge = onChangeBADuringCharge;
     }
     public static int getHoldEditSkillCost(JsonObject element) {
-        return element.get() holdEditSkillCost;
+        return element.get("_HoldEditSkillCost").getAsInt();
     }
     public static void setHoldEditSkillCost(JsonObject element, int holdEditSkillCost) {
         this.holdEditSkillCost = holdEditSkillCost;
     }
     public static int getEditSkillId(JsonObject element) {
-        return element.get() editSkillId;
+        return element.get("_EditSkillId").getAsInt();
     }
     public static void setEditSkillId(JsonObject element, int editSkillId) {
         this.editSkillId = editSkillId;
     }
     public static int getEditSkillLevelNum(JsonObject element) {
-        return element.get() editSkillLevelNum;
+        return element.get("_EditSkillLevelNum").getAsInt();
     }
     public static void setEditSkillLevelNum(JsonObject element, int editSkillLevelNum) {
         this.editSkillLevelNum = editSkillLevelNum;
     }
     public static int getEditSkillCost(JsonObject element) {
-        return element.get() editSkillCost;
+        return element.get("_EditSkillCost").getAsInt();
     }
     public static void setEditSkillCost(JsonObject element, int editSkillCost) {
         this.editSkillCost = editSkillCost;
     }
     public static int getEditSkillRelationId(JsonObject element) {
-        return element.get() editSkillRelationId;
+        return element.get("_EditSkillRelationId").getAsInt();
     }
     public static void setEditSkillRelationId(JsonObject element, int editSkillRelationId) {
         this.editSkillRelationId = editSkillRelationId;
     }
     public static int getEditReleaseEntityType1(JsonObject element) {
-        return element.get() editReleaseEntityType1;
+        return element.get("_EditReleaseEntityType1").getAsInt();
     }
     public static void setEditReleaseEntityType1(JsonObject element, int editReleaseEntityType1) {
         this.editReleaseEntityType1 = editReleaseEntityType1;
     }
     public static int getEditReleaseEntityId1(JsonObject element) {
-        return element.get() editReleaseEntityId1;
+        return element.get("_EditReleaseEntityId1").getAsInt();
     }
     public static void setEditReleaseEntityId1(JsonObject element, int editReleaseEntityId1) {
         this.editReleaseEntityId1 = editReleaseEntityId1;
     }
     public static int getEditReleaseEntityQuantity1(JsonObject element) {
-        return element.get() editReleaseEntityQuantity1;
+        return element.get("_EditReleaseEntityQuantity1").getAsInt();
     }
     public static void setEditReleaseEntityQuantity1(JsonObject element, int editReleaseEntityQuantity1) {
         this.editReleaseEntityQuantity1 = editReleaseEntityQuantity1;
     }
     public static int getIsUnuseDmodeEditSkill(JsonObject element) {
-        return element.get() isUnuseDmodeEditSkill;
+        return element.get("_IsUnuseDmodeEditSkill").getAsInt();
     }
     public static void setIsUnuseDmodeEditSkill(JsonObject element, int isUnuseDmodeEditSkill) {
         this.isUnuseDmodeEditSkill = isUnuseDmodeEditSkill;

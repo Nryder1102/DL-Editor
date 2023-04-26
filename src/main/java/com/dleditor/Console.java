@@ -721,7 +721,7 @@ public abstract class Console {
     }
 
     public static void writeAsJson(Object object,String fileName) throws JsonIOException, IOException{
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
         FileWriter writer = new FileWriter(fileName);
         JsonElement tree = gson.toJsonTree(object);
         gson.toJson(tree, writer);
@@ -738,5 +738,27 @@ public abstract class Console {
 
         return contents;
         
-     }
+    }
+
+    public static Number parseNumber(String str){
+        Number number = null;
+        try {
+            number = Integer.parseInt(str);
+        } catch(NumberFormatException e) {
+            try {
+                number = Double.parseDouble(str);
+            } catch(NumberFormatException e1) {
+                try {
+                    number = Float.parseFloat(str);
+                } catch(NumberFormatException e2) {
+                    try {
+                        number = Long.parseLong(str);
+                    } catch(NumberFormatException e3) {
+                        throw e3;
+                    }       
+                }       
+            }       
+        }
+        return number;
+    }
 }
